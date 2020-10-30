@@ -1692,6 +1692,7 @@ a > code { background-color: #f0f0f0; padding: .1em .4em .1em .4em !important; f
 <li><a href="#software-testing">4.4. Testing code</a>
 <ul class="sectlevel3">
 <li><a href="#252">4.4.1. <span class="must-keyword"><strong>MUST</strong></span> use automated linter based on approved style template</a></li>
+<li><a href="#284">4.4.2. <span class="must-keyword"><strong>MUST</strong></span> use automated tests based on approved testing template</a></li>
 </ul>
 </li>
 <li><a href="#software-monitoring">4.5. Monitoring &amp; logging</a>
@@ -8146,6 +8147,18 @@ described in <a href="#245">Coding rule: code and code changes are self-explanat
 <p>The linter configuration is selected from <a href="#solution-architecture-repository">the solution architecture repository</a>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="284"><a class="link" href="#284">4.4.2. <span class="must-keyword"><strong>MUST</strong></span> use automated tests based on approved testing template</a></h4>
+<div class="paragraph">
+<p>Code changes must be covered by automated tests. When choosing how to cover your changes, pick the most lightweight (execution time wise) test type that will provide sufficient coverage. If you encounter an existing test that insufficiently covers your changes, you can delete that test but you must write a proper test to replace it. For example, a method that interacts with database has a unit test. You can replace it with an integration test.</p>
+</div>
+<div class="paragraph">
+<p>Be aware that while high-level tests may provide coverage to code, it is only indirect coverage. Tests with more direct usage of the changed code will likely still needs to be written to ensure that regardless of the which components are actually used in the black box, the individual components still have coverage.</p>
+</div>
+<div class="paragraph">
+<p>These tests must test the concrete implementation’s behavior in a way that can not be inadvertently changed outside of the test itself.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="software-monitoring"><a class="link" href="#software-monitoring">4.5. Monitoring &amp; logging</a></h3>
@@ -11276,7 +11289,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-30 14:27:59 UTC
+Last updated 2020-10-30 15:12:48 UTC
 </div>
 </div>
 <style>
