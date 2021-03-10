@@ -1690,6 +1690,37 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#193">3.16.2. <span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
 </ul>
 </li>
+<li><a href="#events">3.17. Events</a>
+<ul class="sectlevel3">
+<li><a href="#_events_event_types_and_categories">3.17.1. Events, event types, and categories</a></li>
+<li><a href="#194">3.17.2. <span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></li>
+<li><a href="#195">3.17.3. <span class="must-keyword"><strong>MUST</strong></span> make event schema available for review</a></li>
+<li><a href="#196">3.17.4. <span class="must-keyword"><strong>MUST</strong></span> ensure event schema conforms to Open API schema object</a></li>
+<li><a href="#197">3.17.5. <span class="must-keyword"><strong>MUST</strong></span> ensure that events are registered as event types</a></li>
+<li><a href="#198">3.17.6. <span class="must-keyword"><strong>MUST</strong></span> ensure that events conform to a well-known event category</a>
+<ul class="sectlevel4">
+<li><a href="#_the_general_event_category">3.17.6.1. The general event category</a></li>
+<li><a href="#_the_data_change_event_category">3.17.6.2. The data change event category</a></li>
+<li><a href="#event-metadata">3.17.6.3. Event metadata</a></li>
+</ul>
+</li>
+<li><a href="#199">3.17.7. <span class="must-keyword"><strong>MUST</strong></span> ensure that events define useful business resources</a></li>
+<li><a href="#200">3.17.8. <span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></li>
+<li><a href="#201">3.17.9. <span class="must-keyword"><strong>MUST</strong></span> use the general event category to signal steps and arrival points in business processes</a></li>
+<li><a href="#202">3.17.10. <span class="must-keyword"><strong>MUST</strong></span> use data change events to signal mutations</a></li>
+<li><a href="#203">3.17.11. <span class="should-keyword"><strong>SHOULD</strong></span> provide means for explicit event ordering</a></li>
+<li><a href="#204">3.17.12. <span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></li>
+<li><a href="#205">3.17.13. <span class="should-keyword"><strong>SHOULD</strong></span> ensure that data change events match the APIs resources</a></li>
+<li><a href="#207">3.17.14. <span class="must-keyword"><strong>MUST</strong></span> indicate ownership of event types</a></li>
+<li><a href="#208">3.17.15. <span class="must-keyword"><strong>MUST</strong></span> define event payloads compliant with overall API guidelines</a></li>
+<li><a href="#209">3.17.16. <span class="must-keyword"><strong>MUST</strong></span> maintain backwards compatibility for events</a></li>
+<li><a href="#210">3.17.17. <span class="should-keyword"><strong>SHOULD</strong></span> avoid <code>additionalProperties</code> in event type definitions</a></li>
+<li><a href="#211">3.17.18. <span class="must-keyword"><strong>MUST</strong></span> use unique event identifiers</a></li>
+<li><a href="#212">3.17.19. <span class="should-keyword"><strong>SHOULD</strong></span> design for idempotent out-of-order processing</a></li>
+<li><a href="#213">3.17.20. <span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></li>
+<li><a href="#214">3.17.21. <span class="must-keyword"><strong>MUST</strong></span> prepare event consumers for duplicate events</a></li>
+</ul>
+</li>
 <li><a href="#appendix-tooling">Appendix A: Tooling</a>
 <ul class="sectlevel3">
 <li><a href="#api-first-integrations">3.A.1. API first integrations</a></li>
@@ -4502,7 +4533,7 @@ resolution.</p>
 <p><a href="#224"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for hostnames</a></p>
 </li>
 <li>
-<p><a href="#213">[213]</a></p>
+<p><a href="#213"><span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></p>
 </li>
 </ul>
 </div>
@@ -6214,8 +6245,1178 @@ useful to identify potential review partner for API changes.</p>
 </div>
 <div class="paragraph">
 <p>Hint: A preferred way of client detection implementation is by logging
-of the client-id retrieved from the OAuth token.
-Unresolved directive in index.adoc - include::chapters/integration/events.adoc[]</p>
+of the client-id retrieved from the OAuth token.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="events"><a class="link" href="#events">3.17. Events</a></h3>
+<div class="paragraph">
+<p>Pon’s architecture centers around decoupled microservices and in
+that context we favour asynchronous event driven approaches. The
+guidelines in this section focus on how to design and publish events
+intended to be shared for others to consume.</p>
+</div>
+<div class="sect3">
+<h4 id="_events_event_types_and_categories"><a class="link" href="#_events_event_types_and_categories">3.17.1. Events, event types, and categories</a></h4>
+<div class="paragraph">
+<p>Events are defined using an item called an <em>Event Type</em>. The Event Type
+allows events to have their structure declared with a schema by
+producers and understood by consumers. An Event Type declares standard
+information, such as a name, an owning application (and by implication,
+an owning team), a schema defining the event&#8217;s custom data, and a
+compatibility mode declaring how the schema will be evolved. Event Types
+also allow the declaration of validation and enrichment strategies for
+events, along with supplemental information such as how events can be
+partitioned in an event stream.</p>
+</div>
+<div class="paragraph">
+<p>Event Types belong to a well known <em>Event Category</em> (such as a data
+change category), which provides extra information that is common to
+that kind of event.</p>
+</div>
+<div class="paragraph">
+<p>Event Types can be published and made available as API resources for
+teams to use, typically in an <em>Event Type Registry</em>. Each event
+published can then be validated against the overall structure of its
+event type and the schema for its custom data.</p>
+</div>
+<div class="paragraph">
+<p>The basic model described above was originally developed in the
+<a href="https://github.com/zalando/nakadi">Nakadi project</a>, which acts as a
+reference implementation of the event type registry, and as a validating
+publish/subscribe broker for event producers and consumers.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="194"><a class="link" href="#194">3.17.2. <span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></h4>
+<div class="paragraph">
+<p>Events are part of a service’s interface to the outside world equivalent
+in standing to a service’s REST API. Services publishing data for
+integration must treat their events as a first class design concern,
+just as they would an API. For example this means approaching events
+with the "API first" principle in mind as described in the <a href="#introduction">Introduction</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="195"><a class="link" href="#195">3.17.3. <span class="must-keyword"><strong>MUST</strong></span> make event schema available for review</a></h4>
+<div class="paragraph">
+<p>Services publishing event data for use by others must make the event
+schema as well as the event type definition available for review.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="196"><a class="link" href="#196">3.17.4. <span class="must-keyword"><strong>MUST</strong></span> ensure event schema conforms to Open API schema object</a></h4>
+<div class="paragraph">
+<p>To align the event schema specifications to API specifications, we use
+the Schema Object as defined by the Open API Specifications to define event
+schemas. This is particularly useful for events that represent data changes
+about resources also used in other APIs.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject">Open
+API Schema Object</a> is an <strong>extended subset</strong> of
+<a href="http://json-schema.org/">JSON Schema Draft 4</a>. For convenience,
+we highlight some important differences below. Please refer to the
+<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject">Open
+API Schema Object specification</a> for details.</p>
+</div>
+<div class="paragraph">
+<p>As the Open API Schema Object specification <em>removes</em> some JSON Schema
+keywords, the following properties <strong>must not</strong> be used in event schemas:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>additionalItems</code></p>
+</li>
+<li>
+<p><code>contains</code></p>
+</li>
+<li>
+<p><code>patternProperties</code></p>
+</li>
+<li>
+<p><code>dependencies</code></p>
+</li>
+<li>
+<p><code>propertyNames</code></p>
+</li>
+<li>
+<p><code>const</code></p>
+</li>
+<li>
+<p><code>not</code></p>
+</li>
+<li>
+<p><code>oneOf</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>On the other side Schema Object <em>redefines</em> some JSON Schema keywords:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>additionalProperties</code>: For event types that declare compatibility
+guarantees, there are recommended constraints around the use of this
+field. See the guideline <a href="#210"><span class="should-keyword"><strong>SHOULD</strong></span> avoid <code>additionalProperties</code> in event type definitions</a> for details.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Finally, the Schema Object <em>extends</em> JSON Schema with some keywords:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>readOnly</code>: events are logically immutable, so <code>readOnly</code> can be
+considered redundant, but harmless.</p>
+</li>
+<li>
+<p><code>discriminator</code>: to support polymorphism, as an alternative to <code>oneOf</code>.</p>
+</li>
+<li>
+<p><code>^x-</code>: patterned objects in the form of
+<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#vendorExtensions">vendor
+extensions</a> can be used in event type schema, but it might be the case
+that general purpose validators do not understand them to enforce a
+validation check, and fall back to must-ignore processing. A future
+version of the guidelines may define well known vendor extensions for
+events.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="197"><a class="link" href="#197">3.17.5. <span class="must-keyword"><strong>MUST</strong></span> ensure that events are registered as event types</a></h4>
+<div class="paragraph">
+<p>In Pon&#8217;s architecture, events are registered using a structure
+called an <em>Event Type</em>. The Event Type declares standard information as
+follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A well known event category, such as a general or data change
+category.</p>
+</li>
+<li>
+<p>The name of the event type.</p>
+</li>
+<li>
+<p>The definition of the <a href="#219">event target audience</a>.</p>
+</li>
+<li>
+<p>An owning application, and by implication, an owning team.</p>
+</li>
+<li>
+<p>A schema defining the event payload.</p>
+</li>
+<li>
+<p>The compatibility mode for the type.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Event Types allow easier discovery of event information and ensure that
+information is well-structured, consistent, and can be validated.</p>
+</div>
+<div class="paragraph">
+<p>Event type owners must pay attention to the choice of compatibility
+mode. The mode provides a means to evolve the schema. The range of
+modes are designed to be flexible enough so that producers can evolve
+schemas while not inadvertently breaking existing consumers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>none</code>: Any schema modification is accepted, even if it might break
+existing producers or consumers. When validating events, undefined
+properties are accepted unless declared in the schema.</p>
+</li>
+<li>
+<p><code>forward</code>: A schema <code>S1</code> is forward compatible if the previously
+registered schema, <code>S0</code> can read events defined by <code>S1</code> - that is,
+consumers can read events tagged with the latest schema version using
+the previous version as long as consumers follow the robustness
+principle described in the guideline&#8217;s <a href="#api-design-principles">API design principles</a>.</p>
+</li>
+<li>
+<p><code>compatible</code>: This means changes are fully compatible. A new schema,
+<code>S1</code>, is fully compatible when every event published since the first
+schema version will validate against the latest schema. In compatible
+mode, only the addition of new optional properties and definitions to an
+existing schema is allowed. Other changes are forbidden.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The compatibility mode interact with revision numbers in the schema
+<code>version</code> field, which follows semantic versioning (MAJOR.MINOR.PATCH):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Changing an event type with compatibility mode <code>compatible</code> can lead
+to a PATCH or MINOR version revision. MAJOR breaking changes are not
+allowed.</p>
+</li>
+<li>
+<p>Changing an event type with compatibility mode <code>forward</code> can lead to a
+PATCH or MINOR version revision. MAJOR breaking changes are not allowed.</p>
+</li>
+<li>
+<p>Changing an event type with compatibility mode <code>none</code> can lead to
+PATCH, MINOR or MAJOR level changes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following examples illustrate this relations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Changes to the event type&#8217;s <code>title</code> or <code>description</code> are considered
+PATCH level.</p>
+</li>
+<li>
+<p>Adding new optional fields to an event type&#8217;s schema is considered a
+MINOR level change.</p>
+</li>
+<li>
+<p>All other changes are considered MAJOR level, such as renaming or
+removing fields, or adding new required fields.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The core Event Type structure is shown below as an Open API object
+definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">EventType</span>:
+  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+    An event type defines the schema and its runtime properties. The required
+    fields are the minimum set the creator of an event type is expected to
+    supply.</span></span>
+  <span class="key">required</span>:
+    - <span class="string"><span class="content">name</span></span>
+    - <span class="string"><span class="content">category</span></span>
+    - <span class="string"><span class="content">owning_application</span></span>
+    - <span class="string"><span class="content">schema</span></span>
+  <span class="key">properties</span>:
+    <span class="key">name</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Name of this EventType. The name must follow the functional naming
+        pattern `&lt;functional-name&gt;.&lt;event-name&gt;` to preserve global
+        uniqueness and readability.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">pattern</span>: <span class="string"><span class="content">'[a-z][a-z0-9-]*\.[a-z][a-z0-9-]*'</span></span>
+      <span class="key">example</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        transactions.order.order-cancelled
+        customer.personal-data.email-changed</span></span>
+    <span class="key">audience</span>:
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">x-extensible-enum</span>:
+        - <span class="string"><span class="content">component-internal</span></span>
+        - <span class="string"><span class="content">business-unit-internal</span></span>
+        - <span class="string"><span class="content">company-internal</span></span>
+        - <span class="string"><span class="content">external-partner</span></span>
+        - <span class="string"><span class="content">external-public</span></span>
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Intended target audience of the event type, analogue to audience definition for REST APIs
+        in rule #219 https://github.com/PonDigitalSolutions/restful-api-guidelines</span></span>
+    <span class="key">owning_application</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Name of the application (eg, as would be used in infrastructure
+        application or service registry) owning this `EventType`.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">price-service</span></span>
+    <span class="key">category</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">Defines the category of this EventType.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">x-extensible-enum</span>:
+        - <span class="string"><span class="content">data</span></span>
+        - <span class="string"><span class="content">general</span></span>
+    <span class="key">compatibility_mode</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        The compatibility mode to evolve the schema.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">x-extensible-enum</span>:
+        - <span class="string"><span class="content">compatible</span></span>
+        - <span class="string"><span class="content">forward</span></span>
+        - <span class="string"><span class="content">none</span></span>
+      <span class="key">default</span>: <span class="string"><span class="content">forward</span></span>
+    <span class="key">schema</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">The most recent payload schema for this EventType.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
+      <span class="key">properties</span>:
+        <span class="key">version</span>:
+          <span class="key">description</span>: <span class="string"><span class="content">Values are based on semantic versioning (eg &quot;1.2.1&quot;).</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">default</span>: <span class="string"><span class="content">'1.0.0'</span></span>
+        <span class="key">created_at</span>:
+          <span class="key">description</span>: <span class="string"><span class="content">Creation timestamp of the schema.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">readOnly</span>: <span class="string"><span class="content">true</span></span>
+          <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
+          <span class="key">example</span>: <span class="string"><span class="content">'1996-12-19T16:39:57-08:00'</span></span>
+        <span class="key">type</span>:
+          <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+             The schema language of schema definition. Currently only
+             json_schema (JSON Schema v04) syntax is defined, but in the
+             future there could be others.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+          <span class="key">x-extensible-enum</span>:
+            - <span class="string"><span class="content">json_schema</span></span>
+        <span class="key">schema</span>:
+          <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+              The schema as string in the syntax defined in the field type.</span></span>
+          <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">required</span>:
+        - <span class="string"><span class="content">type</span></span>
+        - <span class="string"><span class="content">schema</span></span>
+    <span class="key">ordering_key_fields</span>:
+      <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Indicates which field is used for application level ordering of events.
+        It is typically a single field, but also multiple fields for compound
+        ordering key are supported (first item is most significant).
+
+        This is an informational only event type attribute for specification of
+        application level ordering. Nakadi transportation layer is not affected,
+        where events are delivered to consumers in the order they were published.
+
+        Scope of the ordering is all events (of all partitions), unless it is
+        restricted to data instance scope in combination with
+        `ordering_instance_ids` attribute below.
+
+        This field can be modified at any moment, but event type owners are
+        expected to notify consumer in advance about the change.
+
+        *Background:* Event ordering is often created on application level using
+        ascending counters, and data providers/consumers do not need to rely on the
+        event publication order. A typical example are data instance change events
+        used to keep a slave data store replica in sync. Here you have an order
+        defined per instance using data object change counters (aka row update
+        version) and the order of event publication is not relevant, because
+        consumers for data synchronization skip older instance versions when they
+        reconstruct the data object replica state.</span></span>
+
+      <span class="key">items</span>:
+        <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+          Indicates a single ordering field. This is a JsonPointer, which is applied
+          onto the whole event object, including the contained metadata and data (in
+          case of a data change event) objects. It must point to a field of type
+          string or number/integer (as for those the ordering is obvious).
+
+          Indicates a single ordering field. It is a simple path (dot separated) to
+          the JSON leaf element of the whole event object, including the contained metadata and data (in
+          case of a data change event) objects. It must point to a field of type
+          string or number/integer (as for those the ordering is obvious), and must be
+          present in the schema.</span></span>
+        <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">data.order_change_counter</span><span class="delimiter">&quot;</span></span>
+    <span class="key">ordering_instance_ids</span>:
+      <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Indicates which field represents the data instance identifier and scope in
+        which ordering_key_fields provides a strict order. It is typically a single
+        field, but multiple fields for compound identifier keys are also supported.
+
+        This is an informational only event type attribute without specific Nakadi
+        semantics for specification of application level ordering. It only can be
+        used in combination with `ordering_key_fields`.
+
+        This field can be modified at any moment, but event type owners are expected
+        to notify consumer in advance about the change.</span></span>
+      <span class="key">items</span>:
+        <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+          Indicates a single key field. It is a simple path (dot separated) to the JSON
+          leaf element of the whole event object, including the contained metadata and
+          data (in case of a data change event) objects, and it must be present in the
+          schema.</span></span>
+       <span class="key">example</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">data.order_number</span><span class="delimiter">&quot;</span></span>
+    <span class="key">created_at</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">When this event type was created.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">pattern</span>: <span class="string"><span class="content">date-time</span></span>
+    <span class="key">updated_at</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">When this event type was last updated.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">pattern</span>: <span class="string"><span class="content">date-time</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>APIs such as registries supporting event types, may extend the model,
+including the set of supported categories and schema formats. For
+example the Nakadi API&#8217;s event category registration also allows the
+declaration of validation and enrichment strategies for events, along
+with supplemental information, such as how events are partitioned in the
+stream (see <a href="#204"><span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a>).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="198"><a class="link" href="#198">3.17.6. <span class="must-keyword"><strong>MUST</strong></span> ensure that events conform to a well-known event category</a></h4>
+<div class="paragraph">
+<p>An <em>event category</em> describes a generic class of event types. The
+guidelines define two such categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>General Event: a general purpose category.</p>
+</li>
+<li>
+<p>Data Change Event: a category used for describing changes to data
+entities used for data replication based data integration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The set of categories is expected to evolve in the future.</p>
+</div>
+<div class="paragraph">
+<p>A category describes a predefined structure that event publishers must
+conform to along with standard information about that kind of event
+(such as the operation for a data change event).</p>
+</div>
+<div class="sect4">
+<h5 id="_the_general_event_category"><a class="link" href="#_the_general_event_category">3.17.6.1. The general event category</a></h5>
+<div class="paragraph">
+<p>The structure of the <em>General Event Category</em> is shown below as an Open
+API Schema Object definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">GeneralEvent</span>:
+  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+    A general kind of event. Event kinds based on this event define their
+    custom schema payload as the top level of the document, with the
+    &quot;metadata&quot; field being required and reserved for standard metadata. An
+    instance of an event based on the event type thus conforms to both the
+    EventMetadata definition and the custom schema definition. Previously
+    this category was called the Business Category.</span></span>
+  <span class="key">required</span>:
+    - <span class="string"><span class="content">metadata</span></span>
+  <span class="key">properties</span>:
+    <span class="key">metadata</span>:
+        <span class="error">$ref</span>: <span class="error">'#/definitions/EventMetadata'</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Event types based on the General Event Category define their custom
+schema payload at the top-level of the document, with the
+<a href="#event-metadata">metadata</a> field being reserved for standard
+information (the contents of <a href="#event-metadata">metadata</a> are
+described further down in this section).</p>
+</div>
+<div class="paragraph">
+<p>In the example fragment below, the reserved <a href="#event-metadata">metadata</a>
+field is shown with fields "a" and "b" being defined as part of the custom
+schema:</p>
+</div>
+<div class="paragraph">
+<p>Note:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The General Event in a previous version of the guidelines was called a
+<em>Business Event</em>. Implementation experience has shown that the
+category&#8217;s structure gets used for other kinds of events, hence the name
+has been generalized to reflect how teams are using it.</p>
+</li>
+<li>
+<p>The General Event is still useful and recommended for the purpose of
+defining events that drive a business process.</p>
+</li>
+<li>
+<p>The Nakadi broker still refers to the General Category as the Business
+Category and uses the keyword "business" for event type registration.
+Other than that, the JSON structures are identical.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="#201"><span class="must-keyword"><strong>MUST</strong></span> use the general event category to signal steps and arrival points in business processes</a> for more guidance on how to use the category.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_the_data_change_event_category"><a class="link" href="#_the_data_change_event_category">3.17.6.2. The data change event category</a></h5>
+<div class="paragraph">
+<p>The <em>Data Change Event Category</em> structure is shown below as an Open API
+Schema Object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">DataChangeEvent</span>:
+  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+    Represents a change to an entity. The required fields are those
+    expected to be sent by the producer, other fields may be added
+    by intermediaries such as a publish/subscribe broker. An instance
+    of an event based on the event type conforms to both the
+    DataChangeEvent's definition and the custom schema definition.</span></span>
+  <span class="key">required</span>:
+    - <span class="string"><span class="content">metadata</span></span>
+    - <span class="string"><span class="content">data_op</span></span>
+    - <span class="string"><span class="content">data_type</span></span>
+    - <span class="string"><span class="content">data</span></span>
+  <span class="key">properties</span>:
+    <span class="key">metadata</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">The metadata for this event.</span></span>
+      <span class="error">$ref</span>: <span class="error">'#/definitions/EventMetadata'</span>
+    <span class="key">data</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Contains custom payload for the event type. The payload must conform
+        to a schema associated with the event type declared in the metadata
+        object's `event_type` field.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
+    <span class="key">data_type</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">name of the (business) data entity that has been mutated</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'sales_order.order'</span></span>
+    <span class="key">data_op</span>:
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">enum</span>: <span class="string"><span class="content">['C', 'U', 'D', 'S']</span></span>
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        The type of operation executed on the entity:
+
+        - C: Creation of an entity
+        - U: An update to an entity.
+        - D: Deletion of an entity.
+        - S: A snapshot of an entity at a point in time.</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Data Change Event Category is structurally different to the General
+Event Category. It defines a field called <code>data</code> for placing the custom
+payload information, as well as specific information related to data
+changes in the <code>data_type</code>. In the example fragment below, the fields
+<code>a</code> and <code>b</code> are part of the custom payload housed inside the <code>data</code>
+field:</p>
+</div>
+<div class="paragraph">
+<p>See the following guidelines for more guidance on how to use the Data
+Change Event Category:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#205"><span class="should-keyword"><strong>SHOULD</strong></span> ensure that data change events match the APIs resources</a></p>
+</li>
+<li>
+<p><a href="#202"><span class="must-keyword"><strong>MUST</strong></span> use data change events to signal mutations</a></p>
+</li>
+<li>
+<p><a href="#204"><span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="event-metadata"><a class="link" href="#event-metadata">3.17.6.3. Event metadata</a></h5>
+<div class="paragraph">
+<p>The General and Data Change event categories share a common structure
+for <em>metadata</em>. The metadata structure is shown below as an Open API
+Schema Object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">EventMetadata</span>:
+  <span class="key">type</span>: <span class="string"><span class="content">object</span></span>
+  <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+    Carries metadata for an Event along with common fields. The required
+    fields are those expected to be sent by the producer, other fields may be
+    added by intermediaries such as publish/subscribe broker.</span></span>
+  <span class="key">required</span>:
+    - <span class="string"><span class="content">eid</span></span>
+    - <span class="string"><span class="content">occurred_at</span></span>
+  <span class="key">properties</span>:
+    <span class="key">eid</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">Identifier of this event.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">format</span>: <span class="string"><span class="content">uuid</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'105a76d8-db49-4144-ace7-e683e8f4ba46'</span></span>
+    <span class="key">event_type</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">The name of the EventType of this Event.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'example.important-business-event'</span></span>
+    <span class="key">occurred_at</span>:
+      <span class="key">description</span>: <span class="string"><span class="content">When the event was created according to the producer.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'1996-12-19T16:39:57-08:00'</span></span>
+    <span class="key">received_at</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        When the event was seen by an intermediary such as a broker.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">readOnly</span>: <span class="string"><span class="content">true</span></span>
+      <span class="key">format</span>: <span class="string"><span class="content">date-time</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'1996-12-19T16:39:57-08:00'</span></span>
+    <span class="key">version</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Version of the schema used for validating this event. This may be
+        enriched upon reception by intermediaries. This string uses semantic
+        versioning.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">readOnly</span>: <span class="string"><span class="content">true</span></span>
+    <span class="key">parent_eids</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Event identifiers of the Event that caused the generation of
+        this Event. Set by the producer.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">array</span></span>
+      <span class="key">items</span>:
+        <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+        <span class="key">format</span>: <span class="string"><span class="content">uuid</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'105a76d8-db49-4144-ace7-e683e8f4ba46'</span></span>
+    <span class="key">flow_id</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        A flow-id for this event (corresponds to the X-Flow-Id HTTP header).</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'JAh6xH4OQhCJ9PutIV_RYw'</span></span>
+    <span class="key">partition</span>:
+      <span class="key">description</span>: <span class="string"><span class="delimiter">|</span><span class="content">
+        Indicates the partition assigned to this Event. Used for systems
+        where an event type's events can be sub-divided into partitions.</span></span>
+      <span class="key">type</span>: <span class="string"><span class="content">string</span></span>
+      <span class="key">example</span>: <span class="string"><span class="content">'0'</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please note than intermediaries acting between the producer of an event
+and its ultimate consumers, may perform operations like validation of
+events and enrichment of an event&#8217;s <a href="#event-metadata">metadata</a>. For
+example brokers such as Nakadi, can validate and enrich events with
+arbitrary additional fields that are not specified here and may set default
+or other values, if some of the specified fields are not supplied. How
+such systems work is outside the scope of these guidelines but producers
+and consumers working with such systems should look into their documentation
+for additional information.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="199"><a class="link" href="#199">3.17.7. <span class="must-keyword"><strong>MUST</strong></span> ensure that events define useful business resources</a></h4>
+<div class="paragraph">
+<p>Events are intended to be used by other services including business
+process/data analytics and monitoring. They should be based around the
+resources and business processes you have defined for your service
+domain and adhere to its natural lifecycle (see also <a href="#139"><span class="should-keyword"><strong>SHOULD</strong></span> model complete business processes</a> and <a href="#140"><span class="should-keyword"><strong>SHOULD</strong></span> define <em>useful</em> resources</a>).</p>
+</div>
+<div class="paragraph">
+<p>As there is a cost in creating an explosion of event types and topics,
+prefer to define event types that are abstract/generic enough to be
+valuable for multiple use cases, and avoid publishing event types
+without a clear need.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="200"><a class="link" href="#200">3.17.8. <span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></h4>
+<div class="paragraph">
+<p>Similar to API permission scopes, there will be event type permissions
+passed via an OAuth token supported in near future. In the meantime,
+teams are asked to note the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sensitive data, such as (e-mail addresses, phone numbers, etc) are
+subject to strict access and data protection controls.</p>
+</li>
+<li>
+<p>Event type owners <strong>must not</strong> publish sensitive information unless it&#8217;s
+mandatory or necessary to do so. For example, events sometimes need to
+provide personal data, such as delivery addresses in shipment orders (as
+do other APIs), and this is fine.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="201"><a class="link" href="#201">3.17.9. <span class="must-keyword"><strong>MUST</strong></span> use the general event category to signal steps and arrival points in business processes</a></h4>
+<div class="paragraph">
+<p>When publishing events that represent steps in a business process, event
+types must be based on the General Event category.</p>
+</div>
+<div class="paragraph">
+<p>All your events of a single business process will conform to the
+following rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Business events must contain a specific identifier field (a business
+process id or "bp-id") similar to flow-id to allow for efficient
+aggregation of all events in a business process execution.</p>
+</li>
+<li>
+<p>Business events must contain a means to correctly order events in a
+business process execution. In distributed settings where monotonically
+increasing values (such as a high precision timestamp that is assured to
+move forwards) cannot be obtained, the <code>parent_eids</code> data structure
+allows causal relationships to be declared between events.</p>
+</li>
+<li>
+<p>Business events should only contain information that is new to the
+business process execution at the specific step/arrival point.</p>
+</li>
+<li>
+<p>Each business process sequence should be started by a business event
+containing all relevant context information.</p>
+</li>
+<li>
+<p>Business events must be published reliably by the service.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>At the moment we cannot state whether it&#8217;s best practice to publish all
+the events for a business process using a single event type and
+represent the specific steps with a state field, or whether to use
+multiple event types to represent each step. For now we suggest
+assessing each option and sticking to one for a given business process.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="202"><a class="link" href="#202">3.17.10. <span class="must-keyword"><strong>MUST</strong></span> use data change events to signal mutations</a></h4>
+<div class="paragraph">
+<p>When publishing events that represents created, updated, or deleted
+data, change event types must be based on the Data Change Event
+category.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Change events must identify the changed entity to allow aggregation of
+all related events for the entity.</p>
+</li>
+<li>
+<p>Change events <a href="#203"><span class="should-keyword"><strong>SHOULD</strong></span> provide means for explicit event ordering</a>.</p>
+</li>
+<li>
+<p>Change events must be published reliably by the service.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="203"><a class="link" href="#203">3.17.11. <span class="should-keyword"><strong>SHOULD</strong></span> provide means for explicit event ordering</a></h4>
+<div class="paragraph">
+<p>Some common error cases may require event consumers to reconstruct event
+streams or replay events from a position within the stream. Events
+<em>should</em> therefore contain a way to restore their partial order of
+occurrence.</p>
+</div>
+<div class="paragraph">
+<p>This can be done – among other ways – by adding</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a strictly monotonically increasing entity version (e.g. as
+created by a database) to allow for partial ordering of all
+events for an entity, or</p>
+</li>
+<li>
+<p>a strictly monotonically increasing message counter.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the event type definition, the <code>ordering_key_fields</code> property
+should be used to indicate which field(s) contains the ordering
+key, if any.</p>
+</div>
+<div class="paragraph">
+<p>System timestamps are not necessarily a good choice, since exact
+synchronization of clocks in distributed systems is difficult, two
+events may occur in the same microsecond and system clocks may jump
+backward or forward to compensate drifts or leap-seconds. If you use
+system timestamps to indicate event ordering, you must carefully ensure
+that your designated event order is not messed up by these effects.</p>
+</div>
+<div class="paragraph">
+<p>Also, if using timestamps, the producer <strong>must</strong> make sure that they
+are formatted for all events in the UTC time zone, to allow for a
+simple string-based comparison.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong> that basing events on data structures that can be converged upon
+in a distributed setting (such as
+<a href="https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type">CRDTs</a>,
+<a href="https://en.wikipedia.org/wiki/Logical_clock">logical clocks</a> and
+<a href="https://en.wikipedia.org/wiki/Vector_clock">vector clocks</a>) is outside
+the scope of this guidance.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="204"><a class="link" href="#204">3.17.12. <span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></h4>
+<div class="paragraph">
+<p>The <code>hash</code> partition strategy allows a producer to define which fields
+in an event are used as input to compute a logical partition the event
+should be added to. Partitions are useful as they allow supporting
+systems to scale their throughput while provide local ordering for event
+entities.</p>
+</div>
+<div class="paragraph">
+<p>The <code>hash</code> option is particulary useful for data changes as it allows
+all related events for an entity to be consistently assigned to a
+partition, providing a relative ordered stream of events for that
+entity. This is because while each partition has a total ordering,
+ordering across partitions is not assured by a supporting system, thus
+it is possible for events sent across partitions to appear in a
+different order to consumers that the order they arrived at the server.</p>
+</div>
+<div class="paragraph">
+<p>When using the <code>hash</code> strategy the partition key in almost all cases
+should represent the entity being changed and not a per event or change
+identifier such as the <code>eid</code> field or a timestamp. This ensures data
+changes arrive at the same partition for a given entity and can be
+consumed effectively by clients.</p>
+</div>
+<div class="paragraph">
+<p>There may be exceptional cases where data change events could have their
+partition strategy set to be the producer defined or random options, but
+generally <code>hash</code> is the right option - that is while the guidelines here
+are a "should", they can be read as "must, unless you have a very good
+reason".</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="205"><a class="link" href="#205">3.17.13. <span class="should-keyword"><strong>SHOULD</strong></span> ensure that data change events match the APIs resources</a></h4>
+<div class="paragraph">
+<p>A data change event&#8217;s representation of an entity should correspond to
+the REST API representation.</p>
+</div>
+<div class="paragraph">
+<p>There&#8217;s value in having the fewest number of published structures for a
+service. Consumers of the service will be working with fewer
+representations, and the service owners will have less API surface to
+maintain. In particular, you should only publish events that are
+interesting in the domain and abstract away from implementation or local
+details - there&#8217;s no need to reflect every change that happens within
+your system.</p>
+</div>
+<div class="paragraph">
+<p>There are cases where it could make sense to define data change events
+that don&#8217;t directly correspond to your API resource representations.
+Some examples are -</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Where the API resource representations are very different from the
+datastore representation, but the physical data are easier to reliably
+process for data integration.</p>
+</li>
+<li>
+<p>Publishing aggregated data. For example a data change to an individual
+entity might cause an event to be published that contains a coarser
+representation than that defined for an API</p>
+</li>
+<li>
+<p>Events that are the result of a computation, such as a matching
+algorithm, or the generation of enriched data, and which might not be
+stored as entity by the service.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="207"><a class="link" href="#207">3.17.14. <span class="must-keyword"><strong>MUST</strong></span> indicate ownership of event types</a></h4>
+<div class="paragraph">
+<p>Event definitions must have clear ownership - this can be indicated via
+the <code>owning_application</code> field of the EventType.</p>
+</div>
+<div class="paragraph">
+<p>Typically there is one producer application, which owns the EventType
+and is responsible for its definition, akin to how RESTful API
+definitions are managed. However, the owner may also be a particular
+service from a set of multiple services that are producing the same kind
+of event.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="208"><a class="link" href="#208">3.17.15. <span class="must-keyword"><strong>MUST</strong></span> define event payloads compliant with overall API guidelines</a></h4>
+<div class="paragraph">
+<p>Events must be consistent with other API data and the API Guidelines in
+general.</p>
+</div>
+<div class="paragraph">
+<p>Everything expressed in the <a href="#introduction">Introduction</a> to
+these Guidelines is applicable to event data interchange between
+services. This is because our events, just like our APIs, represent a
+commitment to express what our systems do and designing high-quality,
+useful events allows us to develop new and interesting products and
+services.</p>
+</div>
+<div class="paragraph">
+<p>What distinguishes events from other kinds of data is the delivery style
+used, asynchronous publish-subscribe messaging. But there is no reason
+why they could not be made available using a REST API, for example via a
+search request or as a paginated feed, and it will be common to base
+events on the models created for the service’s REST API.</p>
+</div>
+<div class="paragraph">
+<p>The following existing guideline sections are applicable to events:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#general-guidelines">General guidelines</a></p>
+</li>
+<li>
+<p><a href="#api-naming">API naming</a></p>
+</li>
+<li>
+<p><a href="#data-formats">Data formats</a></p>
+</li>
+<li>
+<p><a href="#common-data-types">Common data types</a></p>
+</li>
+<li>
+<p><a href="#hypermedia">Hypermedia</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="209"><a class="link" href="#209">3.17.16. <span class="must-keyword"><strong>MUST</strong></span> maintain backwards compatibility for events</a></h4>
+<div class="paragraph">
+<p>Changes to events must be based around making additive and backward
+compatible changes. This follows the guideline, "Must: Don’t Break
+Backward Compatibility" from the <a href="#compatibility">Compatibility</a> guidelines.</p>
+</div>
+<div class="paragraph">
+<p>In the context of events, compatibility issues are complicated by the
+fact that producers and consumers of events are highly asynchronous and
+can’t use content-negotiation techniques that are available to REST
+style clients and servers. This places a higher bar on producers to
+maintain compatibility as they will not be in a position to serve
+versioned media types on demand.</p>
+</div>
+<div class="paragraph">
+<p>For event schema, these are considered backward compatible changes, as
+seen by consumers -</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Adding new optional fields to JSON objects.</p>
+</li>
+<li>
+<p>Changing the order of fields (field order in objects is arbitrary).</p>
+</li>
+<li>
+<p>Changing the order of values with same type in an array.</p>
+</li>
+<li>
+<p>Removing optional fields.</p>
+</li>
+<li>
+<p>Removing an individual value from an enumeration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are considered backwards-incompatible changes, as seen by
+consumers -</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Removing required fields from JSON objects.</p>
+</li>
+<li>
+<p>Changing the default value of a field.</p>
+</li>
+<li>
+<p>Changing the type of a field, object, enum or array.</p>
+</li>
+<li>
+<p>Changing the order of values with different type in an array (also
+known as a tuple).</p>
+</li>
+<li>
+<p>Adding a new optional field to redefine the meaning of an existing
+field (also known as a co-occurrence constraint).</p>
+</li>
+<li>
+<p>Adding a value to an enumeration (note that <a href="#112"><code>x-extensible-enum</code></a>
+is not available in JSON Schema)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="210"><a class="link" href="#210">3.17.17. <span class="should-keyword"><strong>SHOULD</strong></span> avoid <code>additionalProperties</code> in event type definitions</a></h4>
+<div class="paragraph">
+<p>Event type schema should avoid using <code>additionalProperties</code>
+declarations, in order to support schema evolution.</p>
+</div>
+<div class="paragraph">
+<p>Events are often intermediated by publish/subscribe systems and are
+commonly captured in logs or long term storage to be read later. In
+particular, the schemas used by publishers and consumers can<br>
+drift over time. As a result, compatibility and extensibility issues
+that happen less frequently with client-server style APIs become
+important and regular considerations for event design. The guidelines
+recommend the following to enable event schema evolution:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Publishers who intend to provide compatibility and allow their schemas
+to evolve safely over time <strong>must not</strong> declare an <code>additionalProperties</code>
+field with a value of <code>true</code> (i.e., a wildcard extension point). Instead
+they must define new optional fields and update their schemas in advance
+of publishing those fields.</p>
+</li>
+<li>
+<p>Consumers <strong>must</strong> ignore fields they cannot process and not raise
+errors. This can happen if they are processing events with an older copy
+of the event schema than the one containing the new definitions
+specified by the publishers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The above constraint does not mean fields can never be added in future
+revisions of an event type schema - additive compatible changes are
+allowed, only that the new schema for an event type must define the
+field first before it is published within an event. By the same turn the
+consumer must ignore fields it does not know about from its copy of the
+schema, just as they would as an API client - that is, they cannot treat
+the absence of an <code>additionalProperties</code> field as though the event type
+schema was closed for extension.</p>
+</div>
+<div class="paragraph">
+<p>Requiring event publishers to define their fields ahead of publishing
+avoids the problem of <em>field redefinition</em>. This is when a publisher
+defines a field to be of a different type that was already being
+emitted, or, is changing the type of an undefined field. Both of these
+are prevented by not using <code>additionalProperties</code>.</p>
+</div>
+<div class="paragraph">
+<p>See also rule 111 in the <a href="#compatibility">Compatibility</a> section for further guidelines
+on the use of <code>additionalProperties</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="211"><a class="link" href="#211">3.17.18. <span class="must-keyword"><strong>MUST</strong></span> use unique event identifiers</a></h4>
+<div class="paragraph">
+<p>The <code>eid</code> (event identifier) value of an event must be unique.</p>
+</div>
+<div class="paragraph">
+<p>The <code>eid</code> property is part of the standard <a href="#event-metadata">metadata</a>
+for an event and gives the event an identifier. Producing clients must
+generate this value when sending an event and it must be guaranteed to
+be unique from the perspective of the owning application. In particular
+events within a given event type&#8217;s stream must have unique identifiers.
+This allows consumers to process the <code>eid</code> to assert the event is unique
+and use it as an idempotency check.</p>
+</div>
+<div class="paragraph">
+<p>Note that uniqueness checking of the <code>eid</code> might be not enforced by
+systems consuming events and it is the responsibility of the producer to
+ensure event identifiers do in fact distinctly identify events. A
+straightforward way to create a unique identifier for an event is to
+generate a UUID value.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="212"><a class="link" href="#212">3.17.19. <span class="should-keyword"><strong>SHOULD</strong></span> design for idempotent out-of-order processing</a></h4>
+<div class="paragraph">
+<p>Events that are designed for <a href="#149">idempotent</a> out-of-order
+processing allow for extremely resilient systems: If processing an event
+fails, consumers and producers can skip/delay/retry it without stopping
+the world or corrupting the processing result.</p>
+</div>
+<div class="paragraph">
+<p>To enable this freedom of processing, you must explicitly design for
+idempotent out-of-order processing: Either your events must contain
+enough information to infer their original order during consumption or
+your domain must be designed in a way that order becomes irrelevant.</p>
+</div>
+<div class="paragraph">
+<p>As common example similar to data change events, idempotent out-of-order
+processing can be supported by sending the following information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the process/resource/entity identifier,</p>
+</li>
+<li>
+<p>a <a href="#203">monotonically increasing ordering key</a> and</p>
+</li>
+<li>
+<p>the process/resource state after the change.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A receiver that is interested in the current state can then ignore
+events that are older than the last processed event of each resource. A
+receiver interested in the history of a resource can use the ordering
+key to recreate a (partially) ordered sequence of events.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="213"><a class="link" href="#213">3.17.20. <span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></h4>
+<div class="paragraph">
+<p>Event type names must (or should, see <a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a> for details and definition)
+conform to the functional naming depending on the <a href="#219">audience</a> as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bnf">&lt;event-type-name&gt;       ::= &lt;functional-event-name&gt; | &lt;application-event-name&gt;
+
+&lt;functional-event-name&gt; ::= &lt;functional-name&gt;.&lt;event-name&gt;
+
+&lt;event-name&gt;            ::= [a-z][a-z0-9-]* -- free event name (functional name)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following application specific legacy convention is <strong>only</strong> allowed for
+<a href="#223">internal</a> event type names:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bnf">&lt;application-event-name&gt; ::= [&lt;organization-id&gt;.]&lt;application-id&gt;.&lt;event-name&gt;
+&lt;organization-id&gt;  ::= [a-z][a-z0-9-]* -- organization identifier, e.g. team identifier
+&lt;application-id&gt;   ::= [a-z][a-z0-9-]* -- application identifier</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> consistent naming should be used whenever the same entity is exposed
+by a data change event and a RESTful API.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="214"><a class="link" href="#214">3.17.21. <span class="must-keyword"><strong>MUST</strong></span> prepare event consumers for duplicate events</a></h4>
+<div class="paragraph">
+<p>Event consumers must be able to process duplicate events.</p>
+</div>
+<div class="paragraph">
+<p>Most message brokers and data streaming systems offer "at-least-once"
+delivery. That is, one particular event is delivered to the consumers
+one or more times. Other circumstances can also cause duplicate events.</p>
+</div>
+<div class="paragraph">
+<p>For example, these situations occur if the publisher sends an event and
+doesn&#8217;t receive the acknowledgment (e.g. due to a network issue). In
+this case, the publisher will try to send the same event again. This
+leads to two identical events in the event bus which have to be
+processed by the consumers. Similar conditions can appear on consumer
+side: an event has been processed successfully, but the consumer fails
+to confirm the processing.</p>
 </div>
 </div>
 </div>
@@ -10196,7 +11397,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-10 12:53:37 UTC
+Last updated 2021-03-10 13:06:59 UTC
 </div>
 </div>
 </body>
