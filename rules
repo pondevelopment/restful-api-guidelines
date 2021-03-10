@@ -13,6 +13,10 @@
       "title": "STATUS-RFPMAY provide API user manual"
     },
     {
+      "id": "#103",
+      "title": "STATUS-RFPMUST write all resources using U.S. English"
+    },
+    {
       "id": "#104",
       "title": "STATUS-RFPMUST secure endpoints"
     },
@@ -239,86 +243,6 @@
     {
       "id": "#193",
       "title": "SHOULD monitor API usage"
-    },
-    {
-      "id": "#194",
-      "title": "MUST treat events as part of the service interface"
-    },
-    {
-      "id": "#195",
-      "title": "MUST make event schema available for review"
-    },
-    {
-      "id": "#196",
-      "title": "MUST ensure event schema conforms to Open API schema object"
-    },
-    {
-      "id": "#197",
-      "title": "MUST ensure that events are registered as event types"
-    },
-    {
-      "id": "#198",
-      "title": "MUST ensure that events conform to a well-known event category"
-    },
-    {
-      "id": "#199",
-      "title": "MUST ensure that events define useful business resources"
-    },
-    {
-      "id": "#200",
-      "title": "MUST ensure that events do not provide sensitive data"
-    },
-    {
-      "id": "#201",
-      "title": "MUST use the general event category to signal steps and arrival points in business processes"
-    },
-    {
-      "id": "#202",
-      "title": "MUST use data change events to signal mutations"
-    },
-    {
-      "id": "#203",
-      "title": "SHOULD provide means for explicit event ordering"
-    },
-    {
-      "id": "#204",
-      "title": "SHOULD use the hash partition strategy for data change events"
-    },
-    {
-      "id": "#205",
-      "title": "SHOULD ensure that data change events match the APIs resources"
-    },
-    {
-      "id": "#207",
-      "title": "MUST indicate ownership of event types"
-    },
-    {
-      "id": "#208",
-      "title": "MUST define event payloads compliant with overall API guidelines"
-    },
-    {
-      "id": "#209",
-      "title": "MUST maintain backwards compatibility for events"
-    },
-    {
-      "id": "#210",
-      "title": "SHOULD avoid `additionalProperties` in event type definitions"
-    },
-    {
-      "id": "#211",
-      "title": "MUST use unique event identifiers"
-    },
-    {
-      "id": "#212",
-      "title": "SHOULD design for idempotent out-of-order processing"
-    },
-    {
-      "id": "#213",
-      "title": "MUST follow naming convention for event type names"
-    },
-    {
-      "id": "#214",
-      "title": "MUST prepare event consumers for duplicate events"
     },
     {
       "id": "#215",
