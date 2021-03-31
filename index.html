@@ -1452,9 +1452,16 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#274">2.2.3. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="should-keyword"><strong>SHOULD</strong></span> be able to report detailed relevant operational states</a></li>
 </ul>
 </li>
-<li><a href="#testing">2.3. Testing</a>
+<li><a href="#quality">2.3. Quality</a>
 <ul class="sectlevel3">
-<li><a href="#276">2.3.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></li>
+<li><a href="#294">2.3.1. {STATUS_RFP} <span class="should-keyword"><strong>SHOULD</strong></span> have seperate environments for development, testing, acceptance and production</a>
+<ul class="sectlevel4">
+<li><a href="#_development">2.3.1.1. Development</a></li>
+<li><a href="#_testing">2.3.1.2. Testing</a></li>
+<li><a href="#_acceptance">2.3.1.3. Acceptance</a></li>
+</ul>
+</li>
+<li><a href="#276">2.3.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></li>
 </ul>
 </li>
 <li><a href="#security-development">2.4. Security</a>
@@ -1474,6 +1481,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_references">2.6.2.1. References</a></li>
 </ul>
 </li>
+<li><a href="#293">2.6.3. <span class="must-keyword"><strong>MUST</strong></span> document deployment procedures</a></li>
 </ul>
 </li>
 <li><a href="#onboarding">2.7. Onboarding</a>
@@ -2312,9 +2320,52 @@ level it will impact the effectiveness of its users.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="testing"><a class="link" href="#testing">2.3. Testing</a></h3>
+<h3 id="quality"><a class="link" href="#quality">2.3. Quality</a></h3>
 <div class="sect3">
-<h4 id="276"><a class="link" href="#276">2.3.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></h4>
+<h4 id="294"><a class="link" href="#294">2.3.1. {STATUS_RFP} <span class="should-keyword"><strong>SHOULD</strong></span> have seperate environments for development, testing, acceptance and production</a></h4>
+<div class="paragraph">
+<p>In order to maintain software or integration quality the setup of an DTAP
+environment is preferred. This setup allows for an atomized way of working on
+features and bug fixes.</p>
+</div>
+<div class="paragraph">
+<p>This environment consists of four parts:</p>
+</div>
+<div class="sect4">
+<h5 id="_development"><a class="link" href="#_development">2.3.1.1. Development</a></h5>
+<div class="paragraph">
+<p>The development environment is used for the actual development or for example
+bug fixing.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_testing"><a class="link" href="#_testing">2.3.1.2. Testing</a></h5>
+<div class="paragraph">
+<p>The testing environment is the first step for quality assurance, in this
+environment the automated or manual tests are done to confirm new
+functionalities or bug fixes. Note there can be several testing environments,
+eg: an environment for the testing of an operational bug and an environment for
+the testing of a new feature.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_acceptance"><a class="link" href="#_acceptance">2.3.1.3. Acceptance</a></h5>
+<div class="paragraph">
+<p>The acceptance environment is the second step for quality assurance, this
+environment allows for the customer to confirm new functionalities or bug fixes.
+In this environment several updates can be combined to prepare for a deployment
+to the production systems.</p>
+</div>
+<div class="paragraph">
+<p>This environment allows for the customer to sign of on the development.</p>
+</div>
+<div class="paragraph">
+<p>===</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="276"><a class="link" href="#276">2.3.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></h4>
 
 </div>
 </div>
@@ -2416,6 +2467,14 @@ monitored by automated systems.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="293"><a class="link" href="#293">2.6.3. <span class="must-keyword"><strong>MUST</strong></span> document deployment procedures</a></h4>
+<div class="paragraph">
+<p>Deployment of the tool, program or integration must be documented. This
+documentation describes the deployment procedures and enables an engineer to
+deploy without any support from the developers.</p>
 </div>
 </div>
 </div>
@@ -2550,7 +2609,7 @@ start of the file and a reference to the project license file.</p>
 <p>All resources in U.S. English <a href="#103"><span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> write all resources using U.S. English</a>?</p>
 </li>
 <li>
-<p><a href="#documentation">Documentation</a> available?</p>
+<p><a href="#documentation">Documentation</a> available for both code an deployment?</p>
 </li>
 <li>
 <p><a href="#security">Security</a> guidelines and standards checked?</p>
@@ -2559,7 +2618,7 @@ start of the file and a reference to the project license file.</p>
 <p><a href="#monitoring">Monitoring</a> documented, KPIs discussed and setup with ops team?</p>
 </li>
 <li>
-<p><a href="#testing">Testing</a> automated and results readily available?</p>
+<p><a href="#quality">Quality assurance</a> automated and results readily available?</p>
 </li>
 </ul>
 </div>
@@ -11397,7 +11456,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-10 13:07:00 UTC
+Last updated 2021-03-31 07:23:20 UTC
 </div>
 </div>
 </body>
