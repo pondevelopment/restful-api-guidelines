@@ -1459,6 +1459,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_development">2.3.1.1. Development</a></li>
 <li><a href="#_testing">2.3.1.2. Testing</a></li>
 <li><a href="#_acceptance">2.3.1.3. Acceptance</a></li>
+<li><a href="#_production">2.3.1.4. Production</a></li>
 </ul>
 </li>
 <li><a href="#276">2.3.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></li>
@@ -2348,7 +2349,8 @@ level it will impact the effectiveness of its users.</p>
 <div class="paragraph">
 <p>In order to maintain software or integration quality the setup of an DTAP
 environment is preferred. This setup allows for an atomized way of working on
-features and bug fixes.</p>
+features and bug fixes. These environments should be available before starting
+development.</p>
 </div>
 <div class="paragraph">
 <p>This environment consists of four parts:</p>
@@ -2381,8 +2383,12 @@ to the production systems.</p>
 <div class="paragraph">
 <p>This environment allows for the customer to sign of on the development.</p>
 </div>
+</div>
+<div class="sect4">
+<h5 id="_production"><a class="link" href="#_production">2.3.1.4. Production</a></h5>
 <div class="paragraph">
-<p>===</p>
+<p>The primary environment for production. This environment can only be updated
+after a signoff of which the requirements are specified beforehand.</p>
 </div>
 </div>
 </div>
@@ -2495,8 +2501,8 @@ monitored by automated systems.</p>
 <h4 id="293"><a class="link" href="#293">2.6.3. <span class="must-keyword"><strong>MUST</strong></span> document deployment procedures</a></h4>
 <div class="paragraph">
 <p>Deployment of the tool, program or integration must be documented. This
-documentation describes the deployment procedures and enables an engineer to
-deploy without any support from the developers.</p>
+documentation describes the deployment procedures and required resources.
+Enabling an engineer to deploy without any support from the developers.</p>
 </div>
 </div>
 </div>
@@ -2631,7 +2637,7 @@ start of the file and a reference to the project license file.</p>
 <p>All resources in U.S. English <a href="#103"><span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> write all resources using U.S. English</a>?</p>
 </li>
 <li>
-<p><a href="#documentation">Documentation</a> available for both code an deployment?</p>
+<p><a href="#documentation">Documentation</a> available for both code and deployment?</p>
 </li>
 <li>
 <p><a href="#security">Security</a> guidelines and standards checked?</p>
@@ -11525,7 +11531,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-06 09:01:20 UTC
+Last updated 2021-05-06 11:18:32 UTC
 </div>
 </div>
 </body>
