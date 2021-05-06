@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.12">
+<meta name="generator" content="Asciidoctor 2.0.15">
 <meta name="keywords" content="Pon, Guidelines, Development, API, Events, Schema">
 <meta name="copyright" content="CC-BY-SA 4.0">
 <title>Pon Integration and Development Guidelines</title>
@@ -1635,102 +1635,106 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#135">3.11.7. <span class="should-keyword"><strong>SHOULD</strong></span> not use /api as base path</a></li>
 <li><a href="#136">3.11.8. <span class="must-keyword"><strong>MUST</strong></span> avoid trailing slashes</a></li>
 <li><a href="#137">3.11.9. <span class="must-keyword"><strong>MUST</strong></span> stick to conventional query parameters</a></li>
-<li><a href="#138">3.11.10. <span class="must-keyword"><strong>MUST</strong></span> avoid actions — think about resources</a></li>
-<li><a href="#139">3.11.11. <span class="should-keyword"><strong>SHOULD</strong></span> model complete business processes</a></li>
-<li><a href="#140">3.11.12. <span class="should-keyword"><strong>SHOULD</strong></span> define <em>useful</em> resources</a></li>
-<li><a href="#141">3.11.13. <span class="must-keyword"><strong>MUST</strong></span> keep URLs verb-free</a></li>
-<li><a href="#142">3.11.14. <span class="must-keyword"><strong>MUST</strong></span> use domain-specific resource names</a></li>
-<li><a href="#228">3.11.15. <span class="must-keyword"><strong>MUST</strong></span> use URL-friendly resource identifiers</a></li>
-<li><a href="#143">3.11.16. <span class="must-keyword"><strong>MUST</strong></span> identify resources and sub-resources via path segments</a></li>
-<li><a href="#241">3.11.17. <span class="may-keyword"><strong>MAY</strong></span> expose compound keys as resource identifiers</a></li>
-<li><a href="#145">3.11.18. <span class="may-keyword"><strong>MAY</strong></span> consider using (non-)nested URLs</a></li>
-<li><a href="#144">3.11.19. <span class="should-keyword"><strong>SHOULD</strong></span> only use UUIDs if necessary</a></li>
-<li><a href="#146">3.11.20. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of resource types</a></li>
-<li><a href="#147">3.11.21. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of sub-resource levels</a></li>
 </ul>
 </li>
-<li><a href="#performance">3.12. Performance</a>
+<li><a href="#resources">3.12. Resources</a>
 <ul class="sectlevel3">
-<li><a href="#155">3.12.1. <span class="should-keyword"><strong>SHOULD</strong></span> reduce bandwidth needs and improve responsiveness</a></li>
-<li><a href="#156">3.12.2. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>gzip</code> compression</a></li>
-<li><a href="#157">3.12.3. <span class="should-keyword"><strong>SHOULD</strong></span> support partial responses via filtering</a>
+<li><a href="#138">3.12.1. <span class="must-keyword"><strong>MUST</strong></span> avoid actions — think about resources</a></li>
+<li><a href="#139">3.12.2. <span class="should-keyword"><strong>SHOULD</strong></span> model complete business processes</a></li>
+<li><a href="#140">3.12.3. <span class="should-keyword"><strong>SHOULD</strong></span> define <em>useful</em> resources</a></li>
+<li><a href="#141">3.12.4. <span class="must-keyword"><strong>MUST</strong></span> keep URLs verb-free</a></li>
+<li><a href="#142">3.12.5. <span class="must-keyword"><strong>MUST</strong></span> use domain-specific resource names</a></li>
+<li><a href="#228">3.12.6. <span class="must-keyword"><strong>MUST</strong></span> use URL-friendly resource identifiers</a></li>
+<li><a href="#143">3.12.7. <span class="must-keyword"><strong>MUST</strong></span> identify resources and sub-resources via path segments</a></li>
+<li><a href="#241">3.12.8. <span class="may-keyword"><strong>MAY</strong></span> expose compound keys as resource identifiers</a></li>
+<li><a href="#145">3.12.9. <span class="may-keyword"><strong>MAY</strong></span> consider using (non-)nested URLs</a></li>
+<li><a href="#144">3.12.10. <span class="should-keyword"><strong>SHOULD</strong></span> only use UUIDs if necessary</a></li>
+<li><a href="#146">3.12.11. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of resource types</a></li>
+<li><a href="#147">3.12.12. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of sub-resource levels</a></li>
+</ul>
+</li>
+<li><a href="#performance">3.13. Performance</a>
+<ul class="sectlevel3">
+<li><a href="#155">3.13.1. <span class="should-keyword"><strong>SHOULD</strong></span> reduce bandwidth needs and improve responsiveness</a></li>
+<li><a href="#156">3.13.2. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>gzip</code> compression</a></li>
+<li><a href="#157">3.13.3. <span class="should-keyword"><strong>SHOULD</strong></span> support partial responses via filtering</a>
 <ul class="sectlevel4">
-<li><a href="#unfiltered">3.12.3.1. Unfiltered</a></li>
-<li><a href="#filtered">3.12.3.2. Filtered</a></li>
+<li><a href="#unfiltered">3.13.3.1. Unfiltered</a></li>
+<li><a href="#filtered">3.13.3.2. Filtered</a></li>
 </ul>
 </li>
-<li><a href="#158">3.12.4. <span class="should-keyword"><strong>SHOULD</strong></span> allow optional embedding of sub-resources</a></li>
-<li><a href="#227">3.12.5. <span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></li>
+<li><a href="#158">3.13.4. <span class="should-keyword"><strong>SHOULD</strong></span> allow optional embedding of sub-resources</a></li>
+<li><a href="#227">3.13.5. <span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></li>
 </ul>
 </li>
-<li><a href="#hypermedia">3.13. Hypermedia</a>
+<li><a href="#hypermedia">3.14. Hypermedia</a>
 <ul class="sectlevel3">
-<li><a href="#162">3.13.1. <span class="must-keyword"><strong>MUST</strong></span> use REST maturity level 2</a></li>
-<li><a href="#163">3.13.2. <span class="may-keyword"><strong>MAY</strong></span> use REST maturity level 3 - HATEOAS</a></li>
-<li><a href="#217">3.13.3. <span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI</a></li>
-<li><a href="#164">3.13.4. <span class="must-keyword"><strong>MUST</strong></span> use common hypertext controls</a></li>
-<li><a href="#165">3.13.5. <span class="should-keyword"><strong>SHOULD</strong></span> use simple hypertext controls for pagination and self-references</a></li>
-<li><a href="#166">3.13.6. <span class="must-keyword"><strong>MUST</strong></span> not use link headers with JSON entities</a></li>
+<li><a href="#162">3.14.1. <span class="must-keyword"><strong>MUST</strong></span> use REST maturity level 2</a></li>
+<li><a href="#163">3.14.2. <span class="may-keyword"><strong>MAY</strong></span> use REST maturity level 3 - HATEOAS</a></li>
+<li><a href="#217">3.14.3. <span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI</a></li>
+<li><a href="#164">3.14.4. <span class="must-keyword"><strong>MUST</strong></span> use common hypertext controls</a></li>
+<li><a href="#165">3.14.5. <span class="should-keyword"><strong>SHOULD</strong></span> use simple hypertext controls for pagination and self-references</a></li>
+<li><a href="#166">3.14.6. <span class="must-keyword"><strong>MUST</strong></span> not use link headers with JSON entities</a></li>
 </ul>
 </li>
-<li><a href="#common-headers">3.14. Common headers</a>
+<li><a href="#common-headers">3.15. Common headers</a>
 <ul class="sectlevel3">
-<li><a href="#178">3.14.1. <span class="must-keyword"><strong>MUST</strong></span> use <code>Content-*</code> headers correctly</a></li>
-<li><a href="#133">3.14.2. <span class="may-keyword"><strong>MAY</strong></span> use standardized headers</a></li>
-<li><a href="#179">3.14.3. <span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a></li>
-<li><a href="#180">3.14.4. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>Location</code> header instead of <code>Content-Location</code> header</a></li>
-<li><a href="#181">3.14.5. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a></li>
-<li><a href="#182">3.14.6. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a></li>
-<li><a href="#230">3.14.7. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Idempotency-Key</code> header</a></li>
+<li><a href="#178">3.15.1. <span class="must-keyword"><strong>MUST</strong></span> use <code>Content-*</code> headers correctly</a></li>
+<li><a href="#133">3.15.2. <span class="may-keyword"><strong>MAY</strong></span> use standardized headers</a></li>
+<li><a href="#179">3.15.3. <span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a></li>
+<li><a href="#180">3.15.4. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>Location</code> header instead of <code>Content-Location</code> header</a></li>
+<li><a href="#181">3.15.5. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a></li>
+<li><a href="#182">3.15.6. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a></li>
+<li><a href="#230">3.15.7. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Idempotency-Key</code> header</a></li>
 </ul>
 </li>
-<li><a href="#proprietary-headers">3.15. Proprietary headers</a>
+<li><a href="#proprietary-headers">3.16. Proprietary headers</a>
 <ul class="sectlevel3">
-<li><a href="#183">3.15.1. <span class="must-keyword"><strong>MUST</strong></span> use only the specified proprietary Pon headers</a></li>
-<li><a href="#184">3.15.2. <span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a></li>
-<li><a href="#233">3.15.3. <span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a>
+<li><a href="#183">3.16.1. <span class="must-keyword"><strong>MUST</strong></span> use only the specified proprietary Pon headers</a></li>
+<li><a href="#184">3.16.2. <span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a></li>
+<li><a href="#233">3.16.3. <span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a>
 <ul class="sectlevel4">
-<li><a href="#_data_definition">3.15.3.1. Data Definition</a></li>
-<li><a href="#_service_guidance">3.15.3.2. Service Guidance</a></li>
+<li><a href="#_data_definition">3.16.3.1. Data Definition</a></li>
+<li><a href="#_service_guidance">3.16.3.2. Service Guidance</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#api-operation">3.16. API Operation</a>
+<li><a href="#api-operation">3.17. API Operation</a>
 <ul class="sectlevel3">
-<li><a href="#192">3.16.1. <span class="must-keyword"><strong>MUST</strong></span> publish Open API specification</a></li>
-<li><a href="#193">3.16.2. <span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
+<li><a href="#192">3.17.1. <span class="must-keyword"><strong>MUST</strong></span> publish Open API specification</a></li>
+<li><a href="#193">3.17.2. <span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></li>
 </ul>
 </li>
-<li><a href="#events">3.17. Events</a>
+<li><a href="#events">3.18. Events</a>
 <ul class="sectlevel3">
-<li><a href="#_events_event_types_and_categories">3.17.1. Events, event types, and categories</a></li>
-<li><a href="#194">3.17.2. <span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></li>
-<li><a href="#195">3.17.3. <span class="must-keyword"><strong>MUST</strong></span> make event schema available for review</a></li>
-<li><a href="#196">3.17.4. <span class="must-keyword"><strong>MUST</strong></span> ensure event schema conforms to Open API schema object</a></li>
-<li><a href="#197">3.17.5. <span class="must-keyword"><strong>MUST</strong></span> ensure that events are registered as event types</a></li>
-<li><a href="#198">3.17.6. <span class="must-keyword"><strong>MUST</strong></span> ensure that events conform to a well-known event category</a>
+<li><a href="#_events_event_types_and_categories">3.18.1. Events, event types, and categories</a></li>
+<li><a href="#194">3.18.2. <span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></li>
+<li><a href="#195">3.18.3. <span class="must-keyword"><strong>MUST</strong></span> make event schema available for review</a></li>
+<li><a href="#196">3.18.4. <span class="must-keyword"><strong>MUST</strong></span> ensure event schema conforms to Open API schema object</a></li>
+<li><a href="#197">3.18.5. <span class="must-keyword"><strong>MUST</strong></span> ensure that events are registered as event types</a></li>
+<li><a href="#198">3.18.6. <span class="must-keyword"><strong>MUST</strong></span> ensure that events conform to a well-known event category</a>
 <ul class="sectlevel4">
-<li><a href="#_the_general_event_category">3.17.6.1. The general event category</a></li>
-<li><a href="#_the_data_change_event_category">3.17.6.2. The data change event category</a></li>
-<li><a href="#event-metadata">3.17.6.3. Event metadata</a></li>
+<li><a href="#_the_general_event_category">3.18.6.1. The general event category</a></li>
+<li><a href="#_the_data_change_event_category">3.18.6.2. The data change event category</a></li>
+<li><a href="#event-metadata">3.18.6.3. Event metadata</a></li>
 </ul>
 </li>
-<li><a href="#199">3.17.7. <span class="must-keyword"><strong>MUST</strong></span> ensure that events define useful business resources</a></li>
-<li><a href="#200">3.17.8. <span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></li>
-<li><a href="#201">3.17.9. <span class="must-keyword"><strong>MUST</strong></span> use the general event category to signal steps and arrival points in business processes</a></li>
-<li><a href="#202">3.17.10. <span class="must-keyword"><strong>MUST</strong></span> use data change events to signal mutations</a></li>
-<li><a href="#203">3.17.11. <span class="should-keyword"><strong>SHOULD</strong></span> provide means for explicit event ordering</a></li>
-<li><a href="#204">3.17.12. <span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></li>
-<li><a href="#205">3.17.13. <span class="should-keyword"><strong>SHOULD</strong></span> ensure that data change events match the APIs resources</a></li>
-<li><a href="#207">3.17.14. <span class="must-keyword"><strong>MUST</strong></span> indicate ownership of event types</a></li>
-<li><a href="#208">3.17.15. <span class="must-keyword"><strong>MUST</strong></span> define event payloads compliant with overall API guidelines</a></li>
-<li><a href="#209">3.17.16. <span class="must-keyword"><strong>MUST</strong></span> maintain backwards compatibility for events</a></li>
-<li><a href="#210">3.17.17. <span class="should-keyword"><strong>SHOULD</strong></span> avoid <code>additionalProperties</code> in event type definitions</a></li>
-<li><a href="#211">3.17.18. <span class="must-keyword"><strong>MUST</strong></span> use unique event identifiers</a></li>
-<li><a href="#212">3.17.19. <span class="should-keyword"><strong>SHOULD</strong></span> design for idempotent out-of-order processing</a></li>
-<li><a href="#213">3.17.20. <span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></li>
-<li><a href="#214">3.17.21. <span class="must-keyword"><strong>MUST</strong></span> prepare event consumers for duplicate events</a></li>
+<li><a href="#199">3.18.7. <span class="must-keyword"><strong>MUST</strong></span> ensure that events define useful business resources</a></li>
+<li><a href="#200">3.18.8. <span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></li>
+<li><a href="#201">3.18.9. <span class="must-keyword"><strong>MUST</strong></span> use the general event category to signal steps and arrival points in business processes</a></li>
+<li><a href="#202">3.18.10. <span class="must-keyword"><strong>MUST</strong></span> use data change events to signal mutations</a></li>
+<li><a href="#203">3.18.11. <span class="should-keyword"><strong>SHOULD</strong></span> provide means for explicit event ordering</a></li>
+<li><a href="#204">3.18.12. <span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></li>
+<li><a href="#205">3.18.13. <span class="should-keyword"><strong>SHOULD</strong></span> ensure that data change events match the APIs resources</a></li>
+<li><a href="#207">3.18.14. <span class="must-keyword"><strong>MUST</strong></span> indicate ownership of event types</a></li>
+<li><a href="#208">3.18.15. <span class="must-keyword"><strong>MUST</strong></span> define event payloads compliant with overall API guidelines</a></li>
+<li><a href="#209">3.18.16. <span class="must-keyword"><strong>MUST</strong></span> maintain backwards compatibility for events</a></li>
+<li><a href="#210">3.18.17. <span class="should-keyword"><strong>SHOULD</strong></span> avoid <code>additionalProperties</code> in event type definitions</a></li>
+<li><a href="#211">3.18.18. <span class="must-keyword"><strong>MUST</strong></span> use unique event identifiers</a></li>
+<li><a href="#212">3.18.19. <span class="should-keyword"><strong>SHOULD</strong></span> design for idempotent out-of-order processing</a></li>
+<li><a href="#213">3.18.20. <span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></li>
+<li><a href="#214">3.18.21. <span class="must-keyword"><strong>MUST</strong></span> prepare event consumers for duplicate events</a></li>
 </ul>
 </li>
 <li><a href="#appendix-tooling">Appendix A: Tooling</a>
@@ -1784,17 +1788,28 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_review_guidelines">4.3.1.1. Review guidelines</a></li>
 </ul>
 </li>
-<li><a href="#252">4.3.2. <span class="must-keyword"><strong>MUST</strong></span> use automated linter based on approved style template</a></li>
-<li><a href="#284">4.3.3. <span class="must-keyword"><strong>MUST</strong></span> use automated tests based on approved testing template</a></li>
 </ul>
 </li>
-<li><a href="#software-monitoring">4.4. Monitoring &amp; logging</a>
+<li><a href="#software-testing">4.4. Testing code</a>
 <ul class="sectlevel3">
-<li><a href="#259">4.4.1. <span class="should-keyword"><strong>SHOULD</strong></span> use dedicated logging library and logging levels</a></li>
+<li><a href="#252">4.4.1. <span class="must-keyword"><strong>MUST</strong></span> use automated linter based on approved style template</a></li>
+<li><a href="#284">4.4.2. <span class="must-keyword"><strong>MUST</strong></span> use automated tests based on approved testing template</a></li>
 </ul>
 </li>
-<li><a href="#development-environment">4.5. Development environment</a></li>
-<li><a href="#development-background">4.6. Development background</a></li>
+<li><a href="#software-monitoring">4.5. Monitoring &amp; logging</a>
+<ul class="sectlevel3">
+<li><a href="#259">4.5.1. <span class="should-keyword"><strong>SHOULD</strong></span> use dedicated logging library and logging levels</a></li>
+</ul>
+</li>
+<li><a href="#development-environment">4.6. Development environment</a></li>
+<li><a href="#development-background">4.7. Development background</a></li>
+<li><a href="#date-time">4.8. Date and time handling</a>
+<ul class="sectlevel3">
+<li><a href="#296">4.8.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> use ISO 8601 for time and date encoding</a></li>
+<li><a href="#295">4.8.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> date time manipulation must be handled by a library</a></li>
+<li><a href="#127">4.8.3. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></li>
+</ul>
+</li>
 <li><a href="#appendix-standard-style">Appendix C: Pon Standard Style</a>
 <ul class="sectlevel3">
 <li><a href="#267">4.C.1. <span class="must-keyword"><strong>MUST</strong></span> encapsulate body of if or else</a>
@@ -1966,7 +1981,6 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#125">6.2.8. <span class="should-keyword"><strong>SHOULD</strong></span> represent enumerations as strings</a></li>
 <li><a href="#235">6.2.9. <span class="should-keyword"><strong>SHOULD</strong></span> name date/time properties with <code>_at</code> suffix</a></li>
 <li><a href="#126">6.2.10. <span class="should-keyword"><strong>SHOULD</strong></span> define dates properties compliant with RFC 3339</a></li>
-<li><a href="#127">6.2.11. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></li>
 </ul>
 </li>
 </ul>
@@ -1976,6 +1990,10 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#appendix-changelog">Appendix G: Changelog</a>
 <ul class="sectlevel3">
 <li><a href="#rule-changes">7.G.1. Rule Changes</a></li>
+</ul>
+</li>
+<li><a href="#bibliography">7.1. Bibliography</a>
+<ul class="sectlevel3">
 <li><a href="#generic-bib">Generic</a></li>
 <li><a href="#coding-standards">Coding standards</a></li>
 <li><a href="#openapi-specification">Open API specification</a></li>
@@ -3152,8 +3170,7 @@ need to do so. Very often, there are significant system and performance
 implications when supporting full counts. Especially, if the data set grows
 and requests become complex queries and filters drive full scans. While this
 is an implementation detail relative to the API, it is important to consider
-the ability to support serving counts over the life of a service.
-:leveloffset: -1</p>
+the ability to support serving counts over the life of a service.</p>
 </div>
 </div>
 </div>
@@ -4777,15 +4794,15 @@ direction, and the applied query filters to recreate the collection. See
 <li>
 <p><a id="limit"></a><a href="#limit"><code>limit</code></a>: client suggested limit to restrict the number of entries on
 a page. See <a href="#pagination">Pagination</a> section below.</p>
-<div id="resources" class="paragraph">
-<p>= Resources</p>
-</div>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="resources"><a class="link" href="#resources">3.12. Resources</a></h3>
 <div class="sect3">
-<h4 id="138"><a class="link" href="#138">3.11.10. <span class="must-keyword"><strong>MUST</strong></span> avoid actions — think about resources</a></h4>
+<h4 id="138"><a class="link" href="#138">3.12.1. <span class="must-keyword"><strong>MUST</strong></span> avoid actions — think about resources</a></h4>
 <div class="paragraph">
 <p>REST is all about your resources, so consider the domain entities that take
 part in web service interaction, and aim to model your API around these using
@@ -4808,7 +4825,7 @@ article locks.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="139"><a class="link" href="#139">3.11.11. <span class="should-keyword"><strong>SHOULD</strong></span> model complete business processes</a></h4>
+<h4 id="139"><a class="link" href="#139">3.12.2. <span class="should-keyword"><strong>SHOULD</strong></span> model complete business processes</a></h4>
 <div class="paragraph">
 <p>An API should contain the complete business processes containing all resources
 representing the process. This enables clients to understand the business
@@ -4822,7 +4839,7 @@ databases, which normally tends to shift business logic to the clients.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="140"><a class="link" href="#140">3.11.12. <span class="should-keyword"><strong>SHOULD</strong></span> define <em>useful</em> resources</a></h4>
+<h4 id="140"><a class="link" href="#140">3.12.3. <span class="should-keyword"><strong>SHOULD</strong></span> define <em>useful</em> resources</a></h4>
 <div class="paragraph">
 <p>As a rule of thumb resources should be defined to cover 90% of all its client&#8217;s
 use cases. A <em>useful</em> resource should contain as much information as necessary,
@@ -4832,7 +4849,7 @@ filtering and <a href="#157">embedding</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="141"><a class="link" href="#141">3.11.13. <span class="must-keyword"><strong>MUST</strong></span> keep URLs verb-free</a></h4>
+<h4 id="141"><a class="link" href="#141">3.12.4. <span class="must-keyword"><strong>MUST</strong></span> keep URLs verb-free</a></h4>
 <div class="paragraph">
 <p>The API describes resources, so the only place where actions should appear is
 in the HTTP methods. In URLs, use only nouns. Instead of thinking of actions
@@ -4843,7 +4860,7 @@ side.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="142"><a class="link" href="#142">3.11.14. <span class="must-keyword"><strong>MUST</strong></span> use domain-specific resource names</a></h4>
+<h4 id="142"><a class="link" href="#142">3.12.5. <span class="must-keyword"><strong>MUST</strong></span> use domain-specific resource names</a></h4>
 <div class="paragraph">
 <p>API resources represent elements of the application’s domain model. Using
 domain-specific nomenclature for resource names helps developers to understand
@@ -4854,7 +4871,7 @@ which business object it represents. Along these lines, "items" is too general.<
 </div>
 </div>
 <div class="sect3">
-<h4 id="228"><a class="link" href="#228">3.11.15. <span class="must-keyword"><strong>MUST</strong></span> use URL-friendly resource identifiers</a></h4>
+<h4 id="228"><a class="link" href="#228">3.12.6. <span class="must-keyword"><strong>MUST</strong></span> use URL-friendly resource identifiers</a></h4>
 <div class="paragraph">
 <p>To simplify encoding of resource IDs in URLs, their representation must only
 consist of ASCII strings using letters, numbers, underscore, minus, colon,
@@ -4869,7 +4886,7 @@ consisting of <a href="#241">compound keys</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="143"><a class="link" href="#143">3.11.16. <span class="must-keyword"><strong>MUST</strong></span> identify resources and sub-resources via path segments</a></h4>
+<h4 id="143"><a class="link" href="#143">3.12.7. <span class="must-keyword"><strong>MUST</strong></span> identify resources and sub-resources via path segments</a></h4>
 <div class="paragraph">
 <p>Some API resources may contain or reference sub-resources. Embedded
 sub-resources, which are not top-level resources, are parts of a higher-level
@@ -4904,7 +4921,7 @@ identifiers (see <a href="#241"><span class="may-keyword"><strong>MAY</strong></
 </div>
 </div>
 <div class="sect3">
-<h4 id="241"><a class="link" href="#241">3.11.17. <span class="may-keyword"><strong>MAY</strong></span> expose compound keys as resource identifiers</a></h4>
+<h4 id="241"><a class="link" href="#241">3.12.8. <span class="may-keyword"><strong>MAY</strong></span> expose compound keys as resource identifiers</a></h4>
 <div class="paragraph">
 <p>If a resource is best identified by a <em>compound key</em> consisting of multiple
 other resource identifiers, it is allowed to reuse the compound key in its
@@ -4964,7 +4981,7 @@ identifier providing another resource endpoint, e.g <code>/article-size-advices/
 </div>
 </div>
 <div class="sect3">
-<h4 id="145"><a class="link" href="#145">3.11.18. <span class="may-keyword"><strong>MAY</strong></span> consider using (non-)nested URLs</a></h4>
+<h4 id="145"><a class="link" href="#145">3.12.9. <span class="may-keyword"><strong>MAY</strong></span> consider using (non-)nested URLs</a></h4>
 <div class="paragraph">
 <p>If a sub-resource is only accessible via its parent resource and may not exist
 without parent resource, consider using a nested URL structure, for instance:</p>
@@ -4988,7 +5005,7 @@ some services may choose to access the orders directly, for instance:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="144"><a class="link" href="#144">3.11.19. <span class="should-keyword"><strong>SHOULD</strong></span> only use UUIDs if necessary</a></h4>
+<h4 id="144"><a class="link" href="#144">3.12.10. <span class="should-keyword"><strong>SHOULD</strong></span> only use UUIDs if necessary</a></h4>
 <div class="paragraph">
 <p>Generating IDs can be a scaling problem in high frequency and near real time
 use cases. UUIDs solve this problem, as they can be generated without
@@ -5059,7 +5076,7 @@ pagination use cases ordered along creation time.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="146"><a class="link" href="#146">3.11.20. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of resource types</a></h4>
+<h4 id="146"><a class="link" href="#146">3.12.11. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of resource types</a></h4>
 <div class="paragraph">
 <p>To keep maintenance and service evolution manageable, we should follow
 "functional segmentation" and "separation of concern" design principles and do
@@ -5117,7 +5134,7 @@ business processes helping clients to understand these flows.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="147"><a class="link" href="#147">3.11.21. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of sub-resource levels</a></h4>
+<h4 id="147"><a class="link" href="#147">3.12.12. <span class="should-keyword"><strong>SHOULD</strong></span> limit number of sub-resource levels</a></h4>
 <div class="paragraph">
 <p>There are main resources (with root url paths) and sub-resources (or <em>nested</em>
 resources with non-root urls paths). Use sub-resources if their life cycle is
@@ -5130,9 +5147,9 @@ than 2000 characters.)</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="performance"><a class="link" href="#performance">3.12. Performance</a></h3>
+<h3 id="performance"><a class="link" href="#performance">3.13. Performance</a></h3>
 <div class="sect3">
-<h4 id="155"><a class="link" href="#155">3.12.1. <span class="should-keyword"><strong>SHOULD</strong></span> reduce bandwidth needs and improve responsiveness</a></h4>
+<h4 id="155"><a class="link" href="#155">3.13.1. <span class="should-keyword"><strong>SHOULD</strong></span> reduce bandwidth needs and improve responsiveness</a></h4>
 <div class="paragraph">
 <p>APIs should support techniques for reducing bandwidth based on client needs.
 This holds for APIs that (might) have high payloads and/or are used in
@@ -5174,7 +5191,7 @@ at all after creation (see <a href="#227"><span class="must-keyword"><strong>MUS
 </div>
 </div>
 <div class="sect3">
-<h4 id="156"><a class="link" href="#156">3.12.2. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>gzip</code> compression</a></h4>
+<h4 id="156"><a class="link" href="#156">3.13.2. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>gzip</code> compression</a></h4>
 <div class="paragraph">
 <p>Compress the payload of your API’s responses with gzip, unless there’s a good
 reason not to — for example, you are serving so many requests that the time to
@@ -5190,7 +5207,7 @@ via <a href="https://tools.ietf.org/html/rfc7231#section-5.3.4"><code>Accept-Enc
 </div>
 </div>
 <div class="sect3">
-<h4 id="157"><a class="link" href="#157">3.12.3. <span class="should-keyword"><strong>SHOULD</strong></span> support partial responses via filtering</a></h4>
+<h4 id="157"><a class="link" href="#157">3.13.3. <span class="should-keyword"><strong>SHOULD</strong></span> support partial responses via filtering</a></h4>
 <div class="paragraph">
 <p>Depending on your use case and payload size, you can significantly reduce
 network bandwidth need by supporting filtering of returned entity fields.
@@ -5202,7 +5219,7 @@ queries, and also applied, for instance, for
 Cloud API&#8217;s partial responses</a>.)</p>
 </div>
 <div class="sect4">
-<h5 id="unfiltered"><a class="link" href="#unfiltered">3.12.3.1. Unfiltered</a></h5>
+<h5 id="unfiltered"><a class="link" href="#unfiltered">3.13.3.1. Unfiltered</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="http">GET http://api.example.org/users/123 HTTP/1.1
@@ -5226,7 +5243,7 @@ Content-Type: application/json
 </div>
 </div>
 <div class="sect4">
-<h5 id="filtered"><a class="link" href="#filtered">3.12.3.2. Filtered</a></h5>
+<h5 id="filtered"><a class="link" href="#filtered">3.13.3.2. Filtered</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="http">GET http://api.example.org/users/123?fields=(name,friends(name)) HTTP/1.1
@@ -5283,7 +5300,7 @@ anticipated by the consumer.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="158"><a class="link" href="#158">3.12.4. <span class="should-keyword"><strong>SHOULD</strong></span> allow optional embedding of sub-resources</a></h4>
+<h4 id="158"><a class="link" href="#158">3.13.4. <span class="should-keyword"><strong>SHOULD</strong></span> allow optional embedding of sub-resources</a></h4>
 <div class="paragraph">
 <p>Embedding related resources (also know as <em>Resource expansion</em>) is a
 great way to reduce the number of requests. In cases where clients know
@@ -5326,7 +5343,7 @@ resource has its order items as sub-resource (/order/{orderId}/items):</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="227"><a class="link" href="#227">3.12.5. <span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></h4>
+<h4 id="227"><a class="link" href="#227">3.13.5. <span class="must-keyword"><strong>MUST</strong></span> document cachable <code>GET</code>, <code>HEAD</code>, and <code>POST</code> endpoints</a></h4>
 <div class="paragraph">
 <p>Caching has to take many aspects into account, e.g. general <a href="#cacheable">cacheability</a> of response information, our guideline to protect endpoints
 using SSL and <a href="#104">OAuth authorization</a>, resource update and invalidation
@@ -5495,9 +5512,9 @@ proxy cache.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="hypermedia"><a class="link" href="#hypermedia">3.13. Hypermedia</a></h3>
+<h3 id="hypermedia"><a class="link" href="#hypermedia">3.14. Hypermedia</a></h3>
 <div class="sect3">
-<h4 id="162"><a class="link" href="#162">3.13.1. <span class="must-keyword"><strong>MUST</strong></span> use REST maturity level 2</a></h4>
+<h4 id="162"><a class="link" href="#162">3.14.1. <span class="must-keyword"><strong>MUST</strong></span> use REST maturity level 2</a></h4>
 <div class="paragraph">
 <p>We strive for a good implementation of
 <a href="http://martinfowler.com/articles/richardsonMaturityModel.html#level2">REST
@@ -5527,7 +5544,7 @@ proper link relationships in your APIs as stated in rules below.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="163"><a class="link" href="#163">3.13.2. <span class="may-keyword"><strong>MAY</strong></span> use REST maturity level 3 - HATEOAS</a></h4>
+<h4 id="163"><a class="link" href="#163">3.14.2. <span class="may-keyword"><strong>MAY</strong></span> use REST maturity level 3 - HATEOAS</a></h4>
 <div class="paragraph">
 <p>We do not generally recommend to implement
 <a href="http://martinfowler.com/articles/richardsonMaturityModel.html#level3">REST
@@ -5587,7 +5604,7 @@ present your findings.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="217"><a class="link" href="#217">3.13.3. <span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI</a></h4>
+<h4 id="217"><a class="link" href="#217">3.14.3. <span class="must-keyword"><strong>MUST</strong></span> use full, absolute URI</a></h4>
 <div class="paragraph">
 <p>Links to other resource must always use full, absolute URI.</p>
 </div>
@@ -5601,7 +5618,7 @@ by following the recommendation to use <a href="#156">gzip compression</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="164"><a class="link" href="#164">3.13.4. <span class="must-keyword"><strong>MUST</strong></span> use common hypertext controls</a></h4>
+<h4 id="164"><a class="link" href="#164">3.14.4. <span class="must-keyword"><strong>MUST</strong></span> use common hypertext controls</a></h4>
 <div class="paragraph">
 <p>When embedding links to other resources into representations you must use the
 common hypertext control object. It contains at least one attribute:</p>
@@ -5681,7 +5698,7 @@ understandability and usability of an API.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="165"><a class="link" href="#165">3.13.5. <span class="should-keyword"><strong>SHOULD</strong></span> use simple hypertext controls for pagination and self-references</a></h4>
+<h4 id="165"><a class="link" href="#165">3.14.5. <span class="should-keyword"><strong>SHOULD</strong></span> use simple hypertext controls for pagination and self-references</a></h4>
 <div class="paragraph">
 <p>For pagination and self-references a simplified form of the <a href="#164">extensible
 common hypertext controls</a> should be used to reduce the specification and
@@ -5695,7 +5712,7 @@ information.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="166"><a class="link" href="#166">3.13.6. <span class="must-keyword"><strong>MUST</strong></span> not use link headers with JSON entities</a></h4>
+<h4 id="166"><a class="link" href="#166">3.14.6. <span class="must-keyword"><strong>MUST</strong></span> not use link headers with JSON entities</a></h4>
 <div class="paragraph">
 <p>For flexibility and precision, we prefer links to be directly embedded in the
 JSON payload instead of being attached using the uncommon link header syntax.
@@ -5705,14 +5722,14 @@ As a result, the use of the <a href="https://tools.ietf.org/html/rfc8288#section
 </div>
 </div>
 <div class="sect2">
-<h3 id="common-headers"><a class="link" href="#common-headers">3.14. Common headers</a></h3>
+<h3 id="common-headers"><a class="link" href="#common-headers">3.15. Common headers</a></h3>
 <div class="paragraph">
 <p>This section describes a handful of headers, which we found raised the most
 questions in our daily usage, or which are useful in particular circumstances
 but not widely known.</p>
 </div>
 <div class="sect3">
-<h4 id="178"><a class="link" href="#178">3.14.1. <span class="must-keyword"><strong>MUST</strong></span> use <code>Content-*</code> headers correctly</a></h4>
+<h4 id="178"><a class="link" href="#178">3.15.1. <span class="must-keyword"><strong>MUST</strong></span> use <code>Content-*</code> headers correctly</a></h4>
 <div class="paragraph">
 <p>Content or entity headers are headers with a <code>Content-</code> prefix. They describe
 the content of the body of the message and they can be used in both, HTTP
@@ -5751,14 +5768,14 @@ of the requested resource representation is delivered with the body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="133"><a class="link" href="#133">3.14.2. <span class="may-keyword"><strong>MAY</strong></span> use standardized headers</a></h4>
+<h4 id="133"><a class="link" href="#133">3.15.2. <span class="may-keyword"><strong>MAY</strong></span> use standardized headers</a></h4>
 <div class="paragraph">
 <p>Use <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">this list</a> and
 mention its support in your Open API definition.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="179"><a class="link" href="#179">3.14.3. <span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a></h4>
+<h4 id="179"><a class="link" href="#179">3.15.3. <span class="may-keyword"><strong>MAY</strong></span> use <code>Content-Location</code> header</a></h4>
 <div class="paragraph">
 <p>The <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> header is <em>optional</em> and can be used in successful write
 operations (<a href="#put"><code>PUT</code></a>, <a href="#post"><code>POST</code></a>, or <a href="#patch"><code>PATCH</code></a>) or read operations (<a href="#get"><code>GET</code></a>, <a href="#head"><code>HEAD</code></a>) to
@@ -5804,7 +5821,7 @@ Content-Location: /products/123/images?format=raw</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="180"><a class="link" href="#180">3.14.4. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>Location</code> header instead of <code>Content-Location</code> header</a></h4>
+<h4 id="180"><a class="link" href="#180">3.15.4. <span class="should-keyword"><strong>SHOULD</strong></span> use <code>Location</code> header instead of <code>Content-Location</code> header</a></h4>
 <div class="paragraph">
 <p>As the correct usage of <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a> with respect to semantics and
 caching is difficult, we <em>discourage</em> the use of <a href="https://tools.ietf.org/html/rfc7231#section-3.1.4.2"><code>Content-Location</code></a>. In most
@@ -5818,7 +5835,7 @@ ambiguities and complexities.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="181"><a class="link" href="#181">3.14.5. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a></h4>
+<h4 id="181"><a class="link" href="#181">3.15.5. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Prefer</code> header to handle processing preferences</a></h4>
 <div class="paragraph">
 <p>The <a href="https://tools.ietf.org/html/rfc7240"><code>Prefer</code></a> header defined in <a href="https://tools.ietf.org/html/rfc7240">RFC 7240</a> allows clients to request
 processing behaviors from servers. It pre-defines a number of preferences and
@@ -5871,7 +5888,7 @@ that are supported by your API endpoint. If necessary, specify different
 </div>
 </div>
 <div class="sect3">
-<h4 id="182"><a class="link" href="#182">3.14.6. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a></h4>
+<h4 id="182"><a class="link" href="#182">3.15.6. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>ETag</code> together with <code>If-Match</code>/<code>If-None-Match</code> header</a></h4>
 <div class="paragraph">
 <p>When creating or updating resources it may be necessary to expose conflicts
 and to prevent the 'lost update' or 'initially created' problem. Following
@@ -5946,7 +5963,7 @@ in the API definition:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="230"><a class="link" href="#230">3.14.7. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Idempotency-Key</code> header</a></h4>
+<h4 id="230"><a class="link" href="#230">3.15.7. <span class="may-keyword"><strong>MAY</strong></span> consider to support <code>Idempotency-Key</code> header</a></h4>
 <div class="paragraph">
 <p>When creating or updating resources it can be helpful or necessary to ensure a
 strong <a href="#idempotent">idempotent</a> behavior comprising same responses, to prevent duplicate
@@ -6024,7 +6041,7 @@ common header.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proprietary-headers"><a class="link" href="#proprietary-headers">3.15. Proprietary headers</a></h3>
+<h3 id="proprietary-headers"><a class="link" href="#proprietary-headers">3.16. Proprietary headers</a></h3>
 <div class="paragraph">
 <p>This section shares definitions of proprietary headers that should be
 named consistently because they address overarching service-related
@@ -6034,7 +6051,7 @@ explicitly visible. Use the parameter definitions of the resource HTTP
 methods.</p>
 </div>
 <div class="sect3">
-<h4 id="183"><a class="link" href="#183">3.15.1. <span class="must-keyword"><strong>MUST</strong></span> use only the specified proprietary Pon headers</a></h4>
+<h4 id="183"><a class="link" href="#183">3.16.1. <span class="must-keyword"><strong>MUST</strong></span> use only the specified proprietary Pon headers</a></h4>
 <div class="paragraph">
 <p>As a general rule, proprietary HTTP headers should be avoided. Still
 they can be useful in cases where context needs to be passed through
@@ -6158,7 +6175,7 @@ hop-by-hop <code>X-RateLimit-</code> headers which can be used as defined in <a 
 </div>
 </div>
 <div class="sect3">
-<h4 id="184"><a class="link" href="#184">3.15.2. <span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a></h4>
+<h4 id="184"><a class="link" href="#184">3.16.2. <span class="must-keyword"><strong>MUST</strong></span> propagate proprietary headers</a></h4>
 <div class="paragraph">
 <p>All Pon&#8217;s proprietary headers are end-to-end headers.
 <sup class="footnote" id="_footnote_header-types">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
@@ -6182,7 +6199,7 @@ information.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="233"><a class="link" href="#233">3.15.3. <span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a></h4>
+<h4 id="233"><a class="link" href="#233">3.16.3. <span class="must-keyword"><strong>MUST</strong></span> support <code>X-Flow-ID</code></a></h4>
 <div class="paragraph">
 <p>The <em>Flow-ID</em> is a generic parameter to be passed through service APIs and
 events and written into log files and traces. A consequent usage of the
@@ -6194,7 +6211,7 @@ platform and initiated internal processing flows (executed synchronously via
 APIs or asynchronously via published events).</p>
 </div>
 <div class="sect4">
-<h5 id="_data_definition"><a class="link" href="#_data_definition">3.15.3.1. Data Definition</a></h5>
+<h5 id="_data_definition"><a class="link" href="#_data_definition">3.16.3.1. Data Definition</a></h5>
 <div class="paragraph">
 <p>The <em>Flow-ID</em> must be passed through:</p>
 </div>
@@ -6244,7 +6261,7 @@ practises (internal link)</a>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_service_guidance"><a class="link" href="#_service_guidance">3.15.3.2. Service Guidance</a></h5>
+<h5 id="_service_guidance"><a class="link" href="#_service_guidance">3.16.3.2. Service Guidance</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -6290,9 +6307,9 @@ DB solutions).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api-operation"><a class="link" href="#api-operation">3.16. API Operation</a></h3>
+<h3 id="api-operation"><a class="link" href="#api-operation">3.17. API Operation</a></h3>
 <div class="sect3">
-<h4 id="192"><a class="link" href="#192">3.16.1. <span class="must-keyword"><strong>MUST</strong></span> publish Open API specification</a></h4>
+<h4 id="192"><a class="link" href="#192">3.17.1. <span class="must-keyword"><strong>MUST</strong></span> publish Open API specification</a></h4>
 <div class="paragraph">
 <p>All service applications must publish Open API specifications of their external
 APIs. While this is optional for internal APIs, i.e. APIs marked with the
@@ -6322,7 +6339,7 @@ services.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="193"><a class="link" href="#193">3.16.2. <span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></h4>
+<h4 id="193"><a class="link" href="#193">3.17.2. <span class="should-keyword"><strong>SHOULD</strong></span> monitor API usage</a></h4>
 <div class="paragraph">
 <p>Owners of APIs used in production should monitor API service to get
 information about its using clients. This information, for instance, is
@@ -6335,7 +6352,7 @@ of the client-id retrieved from the OAuth token.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="events"><a class="link" href="#events">3.17. Events</a></h3>
+<h3 id="events"><a class="link" href="#events">3.18. Events</a></h3>
 <div class="paragraph">
 <p>Pon’s architecture centers around decoupled microservices and in
 that context we favour asynchronous event driven approaches. The
@@ -6343,7 +6360,7 @@ guidelines in this section focus on how to design and publish events
 intended to be shared for others to consume.</p>
 </div>
 <div class="sect3">
-<h4 id="_events_event_types_and_categories"><a class="link" href="#_events_event_types_and_categories">3.17.1. Events, event types, and categories</a></h4>
+<h4 id="_events_event_types_and_categories"><a class="link" href="#_events_event_types_and_categories">3.18.1. Events, event types, and categories</a></h4>
 <div class="paragraph">
 <p>Events are defined using an item called an <em>Event Type</em>. The Event Type
 allows events to have their structure declared with a schema by
@@ -6374,7 +6391,7 @@ publish/subscribe broker for event producers and consumers.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="194"><a class="link" href="#194">3.17.2. <span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></h4>
+<h4 id="194"><a class="link" href="#194">3.18.2. <span class="must-keyword"><strong>MUST</strong></span> treat events as part of the service interface</a></h4>
 <div class="paragraph">
 <p>Events are part of a service’s interface to the outside world equivalent
 in standing to a service’s REST API. Services publishing data for
@@ -6384,14 +6401,14 @@ with the "API first" principle in mind as described in the <a href="#introductio
 </div>
 </div>
 <div class="sect3">
-<h4 id="195"><a class="link" href="#195">3.17.3. <span class="must-keyword"><strong>MUST</strong></span> make event schema available for review</a></h4>
+<h4 id="195"><a class="link" href="#195">3.18.3. <span class="must-keyword"><strong>MUST</strong></span> make event schema available for review</a></h4>
 <div class="paragraph">
 <p>Services publishing event data for use by others must make the event
 schema as well as the event type definition available for review.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="196"><a class="link" href="#196">3.17.4. <span class="must-keyword"><strong>MUST</strong></span> ensure event schema conforms to Open API schema object</a></h4>
+<h4 id="196"><a class="link" href="#196">3.18.4. <span class="must-keyword"><strong>MUST</strong></span> ensure event schema conforms to Open API schema object</a></h4>
 <div class="paragraph">
 <p>To align the event schema specifications to API specifications, we use
 the Schema Object as defined by the Open API Specifications to define event
@@ -6475,7 +6492,7 @@ events.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="197"><a class="link" href="#197">3.17.5. <span class="must-keyword"><strong>MUST</strong></span> ensure that events are registered as event types</a></h4>
+<h4 id="197"><a class="link" href="#197">3.18.5. <span class="must-keyword"><strong>MUST</strong></span> ensure that events are registered as event types</a></h4>
 <div class="paragraph">
 <p>In Pon&#8217;s architecture, events are registered using a structure
 called an <em>Event Type</em>. The Event Type declares standard information as
@@ -6747,7 +6764,7 @@ stream (see <a href="#204"><span class="should-keyword"><strong>SHOULD</strong><
 </div>
 </div>
 <div class="sect3">
-<h4 id="198"><a class="link" href="#198">3.17.6. <span class="must-keyword"><strong>MUST</strong></span> ensure that events conform to a well-known event category</a></h4>
+<h4 id="198"><a class="link" href="#198">3.18.6. <span class="must-keyword"><strong>MUST</strong></span> ensure that events conform to a well-known event category</a></h4>
 <div class="paragraph">
 <p>An <em>event category</em> describes a generic class of event types. The
 guidelines define two such categories:</p>
@@ -6772,7 +6789,7 @@ conform to along with standard information about that kind of event
 (such as the operation for a data change event).</p>
 </div>
 <div class="sect4">
-<h5 id="_the_general_event_category"><a class="link" href="#_the_general_event_category">3.17.6.1. The general event category</a></h5>
+<h5 id="_the_general_event_category"><a class="link" href="#_the_general_event_category">3.18.6.1. The general event category</a></h5>
 <div class="paragraph">
 <p>The structure of the <em>General Event Category</em> is shown below as an Open
 API Schema Object definition:</p>
@@ -6833,7 +6850,7 @@ Other than that, the JSON structures are identical.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_the_data_change_event_category"><a class="link" href="#_the_data_change_event_category">3.17.6.2. The data change event category</a></h5>
+<h5 id="_the_data_change_event_category"><a class="link" href="#_the_data_change_event_category">3.18.6.2. The data change event category</a></h5>
 <div class="paragraph">
 <p>The <em>Data Change Event Category</em> structure is shown below as an Open API
 Schema Object:</p>
@@ -6905,7 +6922,7 @@ Change Event Category:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="event-metadata"><a class="link" href="#event-metadata">3.17.6.3. Event metadata</a></h5>
+<h5 id="event-metadata"><a class="link" href="#event-metadata">3.18.6.3. Event metadata</a></h5>
 <div class="paragraph">
 <p>The General and Data Change event categories share a common structure
 for <em>metadata</em>. The metadata structure is shown below as an Open API
@@ -6987,7 +7004,7 @@ for additional information.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="199"><a class="link" href="#199">3.17.7. <span class="must-keyword"><strong>MUST</strong></span> ensure that events define useful business resources</a></h4>
+<h4 id="199"><a class="link" href="#199">3.18.7. <span class="must-keyword"><strong>MUST</strong></span> ensure that events define useful business resources</a></h4>
 <div class="paragraph">
 <p>Events are intended to be used by other services including business
 process/data analytics and monitoring. They should be based around the
@@ -7002,7 +7019,7 @@ without a clear need.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="200"><a class="link" href="#200">3.17.8. <span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></h4>
+<h4 id="200"><a class="link" href="#200">3.18.8. <span class="must-keyword"><strong>MUST</strong></span> ensure that events do not provide sensitive data</a></h4>
 <div class="paragraph">
 <p>Similar to API permission scopes, there will be event type permissions
 passed via an OAuth token supported in near future. In the meantime,
@@ -7024,7 +7041,7 @@ do other APIs), and this is fine.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="201"><a class="link" href="#201">3.17.9. <span class="must-keyword"><strong>MUST</strong></span> use the general event category to signal steps and arrival points in business processes</a></h4>
+<h4 id="201"><a class="link" href="#201">3.18.9. <span class="must-keyword"><strong>MUST</strong></span> use the general event category to signal steps and arrival points in business processes</a></h4>
 <div class="paragraph">
 <p>When publishing events that represent steps in a business process, event
 types must be based on the General Event category.</p>
@@ -7069,7 +7086,7 @@ assessing each option and sticking to one for a given business process.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="202"><a class="link" href="#202">3.17.10. <span class="must-keyword"><strong>MUST</strong></span> use data change events to signal mutations</a></h4>
+<h4 id="202"><a class="link" href="#202">3.18.10. <span class="must-keyword"><strong>MUST</strong></span> use data change events to signal mutations</a></h4>
 <div class="paragraph">
 <p>When publishing events that represents created, updated, or deleted
 data, change event types must be based on the Data Change Event
@@ -7091,7 +7108,7 @@ all related events for the entity.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="203"><a class="link" href="#203">3.17.11. <span class="should-keyword"><strong>SHOULD</strong></span> provide means for explicit event ordering</a></h4>
+<h4 id="203"><a class="link" href="#203">3.18.11. <span class="should-keyword"><strong>SHOULD</strong></span> provide means for explicit event ordering</a></h4>
 <div class="paragraph">
 <p>Some common error cases may require event consumers to reconstruct event
 streams or replay events from a position within the stream. Events
@@ -7141,7 +7158,7 @@ the scope of this guidance.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="204"><a class="link" href="#204">3.17.12. <span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></h4>
+<h4 id="204"><a class="link" href="#204">3.18.12. <span class="should-keyword"><strong>SHOULD</strong></span> use the hash partition strategy for data change events</a></h4>
 <div class="paragraph">
 <p>The <code>hash</code> partition strategy allows a producer to define which fields
 in an event are used as input to compute a logical partition the event
@@ -7174,7 +7191,7 @@ reason".</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="205"><a class="link" href="#205">3.17.13. <span class="should-keyword"><strong>SHOULD</strong></span> ensure that data change events match the APIs resources</a></h4>
+<h4 id="205"><a class="link" href="#205">3.18.13. <span class="should-keyword"><strong>SHOULD</strong></span> ensure that data change events match the APIs resources</a></h4>
 <div class="paragraph">
 <p>A data change event&#8217;s representation of an entity should correspond to
 the REST API representation.</p>
@@ -7214,7 +7231,7 @@ stored as entity by the service.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="207"><a class="link" href="#207">3.17.14. <span class="must-keyword"><strong>MUST</strong></span> indicate ownership of event types</a></h4>
+<h4 id="207"><a class="link" href="#207">3.18.14. <span class="must-keyword"><strong>MUST</strong></span> indicate ownership of event types</a></h4>
 <div class="paragraph">
 <p>Event definitions must have clear ownership - this can be indicated via
 the <code>owning_application</code> field of the EventType.</p>
@@ -7228,7 +7245,7 @@ of event.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="208"><a class="link" href="#208">3.17.15. <span class="must-keyword"><strong>MUST</strong></span> define event payloads compliant with overall API guidelines</a></h4>
+<h4 id="208"><a class="link" href="#208">3.18.15. <span class="must-keyword"><strong>MUST</strong></span> define event payloads compliant with overall API guidelines</a></h4>
 <div class="paragraph">
 <p>Events must be consistent with other API data and the API Guidelines in
 general.</p>
@@ -7272,7 +7289,7 @@ events on the models created for the service’s REST API.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="209"><a class="link" href="#209">3.17.16. <span class="must-keyword"><strong>MUST</strong></span> maintain backwards compatibility for events</a></h4>
+<h4 id="209"><a class="link" href="#209">3.18.16. <span class="must-keyword"><strong>MUST</strong></span> maintain backwards compatibility for events</a></h4>
 <div class="paragraph">
 <p>Changes to events must be based around making additive and backward
 compatible changes. This follows the guideline, "Must: Don’t Break
@@ -7340,7 +7357,7 @@ is not available in JSON Schema)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="210"><a class="link" href="#210">3.17.17. <span class="should-keyword"><strong>SHOULD</strong></span> avoid <code>additionalProperties</code> in event type definitions</a></h4>
+<h4 id="210"><a class="link" href="#210">3.18.17. <span class="should-keyword"><strong>SHOULD</strong></span> avoid <code>additionalProperties</code> in event type definitions</a></h4>
 <div class="paragraph">
 <p>Event type schema should avoid using <code>additionalProperties</code>
 declarations, in order to support schema evolution.</p>
@@ -7394,7 +7411,7 @@ on the use of <code>additionalProperties</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="211"><a class="link" href="#211">3.17.18. <span class="must-keyword"><strong>MUST</strong></span> use unique event identifiers</a></h4>
+<h4 id="211"><a class="link" href="#211">3.18.18. <span class="must-keyword"><strong>MUST</strong></span> use unique event identifiers</a></h4>
 <div class="paragraph">
 <p>The <code>eid</code> (event identifier) value of an event must be unique.</p>
 </div>
@@ -7416,7 +7433,7 @@ generate a UUID value.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="212"><a class="link" href="#212">3.17.19. <span class="should-keyword"><strong>SHOULD</strong></span> design for idempotent out-of-order processing</a></h4>
+<h4 id="212"><a class="link" href="#212">3.18.19. <span class="should-keyword"><strong>SHOULD</strong></span> design for idempotent out-of-order processing</a></h4>
 <div class="paragraph">
 <p>Events that are designed for <a href="#149">idempotent</a> out-of-order
 processing allow for extremely resilient systems: If processing an event
@@ -7454,7 +7471,7 @@ key to recreate a (partially) ordered sequence of events.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="213"><a class="link" href="#213">3.17.20. <span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></h4>
+<h4 id="213"><a class="link" href="#213">3.18.20. <span class="must-keyword"><strong>MUST</strong></span> follow naming convention for event type names</a></h4>
 <div class="paragraph">
 <p>Event type names must (or should, see <a href="#223"><span class="must-keyword"><strong>MUST</strong></span>/<span class="should-keyword"><strong>SHOULD</strong></span> use functional naming schema</a> for details and definition)
 conform to the functional naming depending on the <a href="#219">audience</a> as follows:</p>
@@ -7485,7 +7502,7 @@ by a data change event and a RESTful API.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="214"><a class="link" href="#214">3.17.21. <span class="must-keyword"><strong>MUST</strong></span> prepare event consumers for duplicate events</a></h4>
+<h4 id="214"><a class="link" href="#214">3.18.21. <span class="must-keyword"><strong>MUST</strong></span> prepare event consumers for duplicate events</a></h4>
 <div class="paragraph">
 <p>Event consumers must be able to process duplicate events.</p>
 </div>
@@ -8309,22 +8326,22 @@ been addressed.</p>
 <li>
 <p>Write comments in a clear, concise, constructive and unambiguous manner as
 described in <a href="#245">Coding rule: code and code changes are self-explanatory</a>.</p>
-<div id="software-testing" class="paragraph">
-<p>= Testing code</p>
-</div>
 </li>
 </ul>
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="software-testing"><a class="link" href="#software-testing">4.4. Testing code</a></h3>
 <div class="sect3">
-<h4 id="252"><a class="link" href="#252">4.3.2. <span class="must-keyword"><strong>MUST</strong></span> use automated linter based on approved style template</a></h4>
+<h4 id="252"><a class="link" href="#252">4.4.1. <span class="must-keyword"><strong>MUST</strong></span> use automated linter based on approved style template</a></h4>
 <div class="paragraph">
 <p>The linter configuration is selected from <a href="#solution-architecture-repository">the solution architecture repository</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="284"><a class="link" href="#284">4.3.3. <span class="must-keyword"><strong>MUST</strong></span> use automated tests based on approved testing template</a></h4>
+<h4 id="284"><a class="link" href="#284">4.4.2. <span class="must-keyword"><strong>MUST</strong></span> use automated tests based on approved testing template</a></h4>
 <div class="paragraph">
 <p>Code changes must be covered by automated tests. When choosing how to cover your changes, pick the most lightweight (execution time wise) test type that will provide sufficient coverage. If you encounter an existing test that insufficiently covers your changes, you can delete that test but you must write a proper test to replace it. For example, a method that interacts with database has a unit test. You can replace it with an integration test.</p>
 </div>
@@ -8337,13 +8354,13 @@ described in <a href="#245">Coding rule: code and code changes are self-explanat
 </div>
 </div>
 <div class="sect2">
-<h3 id="software-monitoring"><a class="link" href="#software-monitoring">4.4. Monitoring &amp; logging</a></h3>
+<h3 id="software-monitoring"><a class="link" href="#software-monitoring">4.5. Monitoring &amp; logging</a></h3>
 <div class="paragraph">
 <p>Logging and monitoring is essential for software, they business should always be
 able to confirm software is functioning correctly.</p>
 </div>
 <div class="sect3">
-<h4 id="259"><a class="link" href="#259">4.4.1. <span class="should-keyword"><strong>SHOULD</strong></span> use dedicated logging library and logging levels</a></h4>
+<h4 id="259"><a class="link" href="#259">4.5.1. <span class="should-keyword"><strong>SHOULD</strong></span> use dedicated logging library and logging levels</a></h4>
 <div class="paragraph">
 <p>Logging directly to the console or command line is not recommended; it reduces
 the effectivess of debugging, monitoring and checking the operational status of
@@ -8357,7 +8374,7 @@ used.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="development-environment"><a class="link" href="#development-environment">4.5. Development environment</a></h3>
+<h3 id="development-environment"><a class="link" href="#development-environment">4.6. Development environment</a></h3>
 <div class="paragraph">
 <p>Which tools are required for a developer to be at peak efficiency?</p>
 </div>
@@ -8366,7 +8383,7 @@ used.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="development-background"><a class="link" href="#development-background">4.6. Development background</a></h3>
+<h3 id="development-background"><a class="link" href="#development-background">4.7. Development background</a></h3>
 <div class="paragraph">
 <p>This chapter further explores what it is to be a developer, it does not contain
 guidelines or standards per-se but it can be of guidance for developers.</p>
@@ -8379,6 +8396,34 @@ guidelines or standards per-se but it can be of guidance for developers.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://fermatslibrary.com/s/apollo-11-implementation-of-trigonometric-functions" class="bare">https://fermatslibrary.com/s/apollo-11-implementation-of-trigonometric-functions</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="date-time"><a class="link" href="#date-time">4.8. Date and time handling</a></h3>
+<div class="paragraph">
+<p>Date and time handling guidelines, including time intervals and durations.</p>
+</div>
+<div class="sect3">
+<h4 id="296"><a class="link" href="#296">4.8.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> use ISO 8601 for time and date encoding</a></h4>
+<div class="paragraph">
+<p>The international standard <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> must be used for time and date
+encoding unless not feasible due to technical constraints.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="295"><a class="link" href="#295">4.8.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> date time manipulation must be handled by a library</a></h4>
+<div class="paragraph">
+<p>Date and time manipulation is very complex and involves many one-offs and thus
+very error prone. Date and time manipulation must be handled by a dedicated
+library, which is available for all main development languages.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="127"><a class="link" href="#127">4.8.3. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></h4>
+<div class="paragraph">
+<p>Schema based JSON properties that are by design durations and intervals could
+be strings formatted as recommended by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">Appendix A of RFC 3339 contains a grammar</a> for durations).</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -11135,13 +11180,6 @@ strings, though more verbose and requiring more effort to parse, avoid this
 ambiguity.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="127"><a class="link" href="#127">6.2.11. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></h4>
-<div class="paragraph">
-<p>Schema based JSON properties that are by design durations and intervals could
-be strings formatted as recommended by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">Appendix A of RFC 3339 contains a grammar</a> for durations).</p>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -11167,12 +11205,14 @@ latter changes are additionally labeled with "Rule Change" here.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>2020-XX-XX:</code>
-= Bibliography</p>
+<p><code>2020-XX-XX:</code></p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="bibliography"><a class="link" href="#bibliography">7.1. Bibliography</a></h3>
 <div class="sect3">
 <h4 id="generic-bib"><a class="link" href="#generic-bib">Generic</a></h4>
 <div class="ulist bibliography">
@@ -11485,7 +11525,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-08 14:42:51 UTC
+Last updated 2021-05-06 09:01:20 UTC
 </div>
 </div>
 </body>
