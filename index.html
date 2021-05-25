@@ -1893,6 +1893,12 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_better_passing_through_context_of_the_error_with_errors_wrap_from_the_github_compkgerrors_package">4.D.10.2. Better &#8594; Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package</a></li>
 </ul>
 </li>
+<li><a href="#297">4.D.11. {SHALL} Documenting comments are alway written in the idiomatic syntax.</a>
+<ul class="sectlevel4">
+<li><a href="#_example_multi_line_comments">4.D.11.1. Example multi line comments</a></li>
+<li><a href="#_do_not_use_stars_or_other_formatting_in_comments">4.D.11.2. Do not use stars or other formatting in comments</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#appendix-standard-style-magento">Appendix E: Pon Standard Style - Magento</a></li>
@@ -8848,7 +8854,7 @@ In our CI/CD the default lint settings of golangci-lint are mandatory.</p>
 <div class="sect3">
 <h4 id="288"><a class="link" href="#288">4.D.6. {SHALL} every function is commented</a></h4>
 <div class="paragraph">
-<p>In Go exported functions must be commented and is enforced by linting. Comments on unexported functions are not enforced by linting, but improve readablity of the code.</p>
+<p>In Go exported functions must be commented and is enforced by linting. Comments on unexported functions are not enforced by linting, but improve readablity of the code. See rule  <a href="#297">297</a> for comment syntaxes.</p>
 </div>
 </div>
 <div class="sect3">
@@ -9026,6 +9032,64 @@ The stacktrace is gone</p>
         <span class="comment">// Handle the error</span>
     }
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="297"><a class="link" href="#297">4.D.11. {SHALL} Documenting comments are alway written in the idiomatic syntax.</a></h4>
+<div class="paragraph">
+<p>The idiomatic syntax for writting comments in go is the // syntax for single line and multi line comments in code. The reason for this is readability. Anyone can spot comment lines instantly event when an ide is not used. The comment syntax should be followed by a space for readabilty.</p>
+</div>
+<div class="sect4">
+<h5 id="_example_multi_line_comments"><a class="link" href="#_example_multi_line_comments">4.D.11.1. Example multi line comments</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><span class="comment">// ServiceRequest is used by the core to send a service specification</span>
+<span class="comment">// to the plugin.</span>
+<span class="comment">// Credentials will be supplied by the core on each ServiceRequest for the</span>
+<span class="comment">// plugin to perform configurations on the target platform. The Plugin must not</span>
+<span class="comment">// save the credentials, because it can be changed at random and the transport</span>
+<span class="comment">// layer must use proper encryption so data can not be read in-flight. The data is base64</span>
+<span class="comment">// encoded. The plugin is responsible for being able to read the credentials for</span>
+<span class="comment">// the specific platform.</span>
+<span class="keyword">type</span> ServiceRequest <span class="keyword">struct</span> {
+        MetaData         metav1beta1.MetaData    <span class="shell"><span class="delimiter">`</span><span class="content">json:&quot;,inline&quot;</span><span class="delimiter">`</span></span>
+        Credentials      <span class="predefined-type">string</span>                  <span class="shell"><span class="delimiter">`</span><span class="content">json:&quot;credentials&quot;</span><span class="delimiter">`</span></span>
+        Type             eventsv1beta1.EventType <span class="shell"><span class="delimiter">`</span><span class="content">json:&quot;type&quot;</span><span class="delimiter">`</span></span>
+        Service          json.RawMessage         <span class="shell"><span class="delimiter">`</span><span class="content">json:&quot;service&quot;</span><span class="delimiter">`</span></span>
+        LinkedService    json.RawMessage         <span class="shell"><span class="delimiter">`</span><span class="content">json:&quot;linkedService&quot;</span><span class="delimiter">`</span></span>
+        DependentService json.RawMessage         <span class="shell"><span class="delimiter">`</span><span class="content">json:&quot;dependendService&quot;</span><span class="delimiter">`</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also use inline comments, but they are not prefered.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">type</span> LogType <span class="predefined-type">string</span>
+
+<span class="keyword">const</span> (
+        DEPLOY     <span class="predefined-type">string</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">deploy</span><span class="delimiter">&quot;</span></span>
+        BUILD      <span class="predefined-type">string</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span> <span class="comment">// This is a very special LogType that needs specific comments</span>
+        INITIALIZE <span class="predefined-type">string</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">initialize</span><span class="delimiter">&quot;</span></span>
+        CLONE      <span class="predefined-type">string</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">clone_repo</span><span class="delimiter">&quot;</span></span>
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Go also supports the block comment syntax of /*&#8230;&#8203;.*/ but is not used inside and between code blocks. A block syntax can be used for the package comment, but only above the package clause at the start of the file (<a href="https://golang.org/doc/effective_go#commentary">effective go # commentary</a>).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_do_not_use_stars_or_other_formatting_in_comments"><a class="link" href="#_do_not_use_stars_or_other_formatting_in_comments">4.D.11.2. Do not use stars or other formatting in comments</a></h5>
+<div class="listingblock go">
+<div class="content">
+<pre class="CodeRay highlight"><code>/**
+* Stars or andy other formating are not used in comments.
+* There is also no need to worry about allignment. gofmt takes care of that
+*/</code></pre>
 </div>
 </div>
 </div>
@@ -11531,7 +11595,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-06 11:23:14 UTC
+Last updated 2021-05-25 19:22:19 UTC
 </div>
 </div>
 </body>
