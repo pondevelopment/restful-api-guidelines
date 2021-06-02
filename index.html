@@ -1879,24 +1879,41 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_example_2_valid_declaration">4.D.7.2. Example 2 Valid declaration</a></li>
 </ul>
 </li>
-<li><a href="#278">4.D.8. <span class="must-keyword"><strong>MUST</strong></span> we do not try and catch exceptions. Errors are values and we handle errors</a></li>
-<li><a href="#279">4.D.9. <span class="must-keyword"><strong>MUST</strong></span> errors are handle only once.</a>
+<li><a href="#300">4.D.8. <span class="must-keyword"><strong>MUST</strong></span> global variables are not used</a>
 <ul class="sectlevel4">
-<li><a href="#_dont_do">4.D.9.1. Don&#8217;t do</a></li>
-<li><a href="#_better">4.D.9.2. Better</a></li>
-<li><a href="#_we_can_also_include_the_stacktrace_in_the_logging">4.D.9.3. We can also include the stacktrace in the logging</a></li>
+<li><a href="#_exception">4.D.8.1. Exception</a></li>
 </ul>
 </li>
-<li><a href="#280">4.D.10. <span class="should-keyword"><strong>SHOULD</strong></span> add context to errors when they are meaningless in the context of the (final) receiver.</a>
+<li><a href="#298">4.D.9. <span class="must-keyword"><strong>MUST</strong></span> variables and constants have explicitly declared types</a>
 <ul class="sectlevel4">
-<li><a href="#_passing_through_context_of_the_error_with_fmt_errorf">4.D.10.1. Passing through context of the error with fmt.Errorf()</a></li>
-<li><a href="#_better_passing_through_context_of_the_error_with_errors_wrap_from_the_github_compkgerrors_package">4.D.10.2. Better &#8594; Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package</a></li>
+<li><a href="#_invalid_declaration">4.D.9.1. Invalid declaration</a></li>
+<li><a href="#_valid_declaration">4.D.9.2. Valid declaration</a></li>
 </ul>
 </li>
-<li><a href="#297">4.D.11. {SHALL} Documenting comments are always written in the idiomatic syntax.</a>
+<li><a href="#299">4.D.10. <span class="should-keyword"><strong>SHOULD</strong></span> use unitialized variables to check for zero-values</a>
 <ul class="sectlevel4">
-<li><a href="#_example_multi_line_comments">4.D.11.1. Example multi line comments</a></li>
-<li><a href="#_do_not_use_stars_or_other_formatting_in_comments">4.D.11.2. Do not use stars or other formatting in comments</a></li>
+<li><a href="#_avoid">4.D.10.1. Avoid</a></li>
+<li><a href="#_desired_check">4.D.10.2. Desired check</a></li>
+</ul>
+</li>
+<li><a href="#278">4.D.11. <span class="must-keyword"><strong>MUST</strong></span> we do not try and catch exceptions. Errors are values and we handle errors</a></li>
+<li><a href="#279">4.D.12. <span class="must-keyword"><strong>MUST</strong></span> errors are handle only once.</a>
+<ul class="sectlevel4">
+<li><a href="#_dont_do">4.D.12.1. Don&#8217;t do</a></li>
+<li><a href="#_better">4.D.12.2. Better</a></li>
+<li><a href="#_we_can_also_include_the_stacktrace_in_the_logging">4.D.12.3. We can also include the stacktrace in the logging</a></li>
+</ul>
+</li>
+<li><a href="#280">4.D.13. <span class="should-keyword"><strong>SHOULD</strong></span> add context to errors when they are meaningless in the context of the (final) receiver.</a>
+<ul class="sectlevel4">
+<li><a href="#_passing_through_context_of_the_error_with_fmt_errorf">4.D.13.1. Passing through context of the error with fmt.Errorf()</a></li>
+<li><a href="#_better_passing_through_context_of_the_error_with_errors_wrap_from_the_github_compkgerrors_package">4.D.13.2. Better &#8594; Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package</a></li>
+</ul>
+</li>
+<li><a href="#297">4.D.14. {SHALL} Documenting comments are always written in the idiomatic syntax.</a>
+<ul class="sectlevel4">
+<li><a href="#_example_multi_line_comments">4.D.14.1. Example multi line comments</a></li>
+<li><a href="#_do_not_use_stars_or_other_formatting_in_comments">4.D.14.2. Do not use stars or other formatting in comments</a></li>
 </ul>
 </li>
 </ul>
@@ -8882,18 +8899,84 @@ In our CI/CD the default lint settings of golangci-lint are mandatory.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="278"><a class="link" href="#278">4.D.8. <span class="must-keyword"><strong>MUST</strong></span> we do not try and catch exceptions. Errors are values and we handle errors</a></h4>
+<h4 id="300"><a class="link" href="#300">4.D.8. <span class="must-keyword"><strong>MUST</strong></span> global variables are not used</a></h4>
+<div class="paragraph">
+<p>Global variables can cause al kinds of bugs in your code and result in poor readability and difficult debugging. It is hard to keep track of where the value is modified and will cause race conditions when used in combination with concurrency.</p>
+</div>
+<div class="sect4">
+<h5 id="_exception"><a class="link" href="#_exception">4.D.8.1. Exception</a></h5>
+<div class="paragraph">
+<p>There is only one valid reason to use global vars and that is for rule <a href="#299">299</a> when it concerns unitialized variables, but only when they are never initialized and modified.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="298"><a class="link" href="#298">4.D.9. <span class="must-keyword"><strong>MUST</strong></span> variables and constants have explicitly declared types</a></h4>
+<div class="paragraph">
+<p>When declaring a variable or a constant the type is explicitly declared. This avoids problems with int, int64 etc.</p>
+</div>
+<div class="sect4">
+<h5 id="_invalid_declaration"><a class="link" href="#_invalid_declaration">4.D.9.1. Invalid declaration</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">const</span> constant1 = <span class="string"><span class="delimiter">&quot;</span><span class="content">value of the constant</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_valid_declaration"><a class="link" href="#_valid_declaration">4.D.9.2. Valid declaration</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">const</span> constant1 <span class="predefined-type">string</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">value of the constant</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="299"><a class="link" href="#299">4.D.10. <span class="should-keyword"><strong>SHOULD</strong></span> use unitialized variables to check for zero-values</a></h4>
+<div class="paragraph">
+<p>An uninitialized variable has the zero value for the declared type. This can be used to check if a variable is zero valued in an absolute and readable manner. These unitialized variabled can be used as global vars to avoid recursion. This is an exception to rule</p>
+</div>
+<div class="sect4">
+<h5 id="_avoid"><a class="link" href="#_avoid">4.D.10.1. Avoid</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">if</span> value == <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> {
+    <span class="comment">// do something</span>
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_desired_check"><a class="link" href="#_desired_check">4.D.10.2. Desired check</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">var</span> empty <span class="predefined-type">string</span> <span class="comment">// this will always be a zero valued string and could be global</span>
+<span class="keyword">var</span> zero <span class="predefined-type">int</span> <span class="comment">// this will always be a zero valued int and could be global</span>
+
+<span class="keyword">if</span> someStringVariable == empty {
+    <span class="comment">// do something</span>
+}
+<span class="keyword">if</span> someIntegerVariable == zero {
+    <span class="comment">// do something</span>
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="278"><a class="link" href="#278">4.D.11. <span class="must-keyword"><strong>MUST</strong></span> we do not try and catch exceptions. Errors are values and we handle errors</a></h4>
 <div class="paragraph">
 <p>In some languages try/catch statements are used. Go does not have that method and we do not try to mimic it. Instead we handle the errors and the errors are just values. You need to assess the value and act upon it.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="279"><a class="link" href="#279">4.D.9. <span class="must-keyword"><strong>MUST</strong></span> errors are handle only once.</a></h4>
+<h4 id="279"><a class="link" href="#279">4.D.12. <span class="must-keyword"><strong>MUST</strong></span> errors are handle only once.</a></h4>
 <div class="paragraph">
 <p>We handle errors only once.</p>
 </div>
 <div class="sect4">
-<h5 id="_dont_do"><a class="link" href="#_dont_do">4.D.9.1. Don&#8217;t do</a></h5>
+<h5 id="_dont_do"><a class="link" href="#_dont_do">4.D.12.1. Don&#8217;t do</a></h5>
 <div class="paragraph">
 <p>Double logs for the same error.</p>
 </div>
@@ -8920,7 +9003,7 @@ In our CI/CD the default lint settings of golangci-lint are mandatory.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_better"><a class="link" href="#_better">4.D.9.2. Better</a></h5>
+<h5 id="_better"><a class="link" href="#_better">4.D.12.2. Better</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="go"><span class="keyword">func</span> doSomething(val <span class="predefined-type">string</span>) (<span class="predefined-type">string</span>, <span class="predefined-type">error</span>){
@@ -8940,7 +9023,7 @@ In our CI/CD the default lint settings of golangci-lint are mandatory.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_we_can_also_include_the_stacktrace_in_the_logging"><a class="link" href="#_we_can_also_include_the_stacktrace_in_the_logging">4.D.9.3. We can also include the stacktrace in the logging</a></h5>
+<h5 id="_we_can_also_include_the_stacktrace_in_the_logging"><a class="link" href="#_we_can_also_include_the_stacktrace_in_the_logging">4.D.12.3. We can also include the stacktrace in the logging</a></h5>
 <div class="paragraph">
 <p>The package github.com/pkg/errors gives more options than the default errors package. You can log the stacktrace.</p>
 </div>
@@ -8968,12 +9051,12 @@ In our CI/CD the default lint settings of golangci-lint are mandatory.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="280"><a class="link" href="#280">4.D.10. <span class="should-keyword"><strong>SHOULD</strong></span> add context to errors when they are meaningless in the context of the (final) receiver.</a></h4>
+<h4 id="280"><a class="link" href="#280">4.D.13. <span class="should-keyword"><strong>SHOULD</strong></span> add context to errors when they are meaningless in the context of the (final) receiver.</a></h4>
 <div class="paragraph">
 <p>When errors are passed it might eventualy be unclear what the origin of the error is. You can pass context to it, but be carefull with fmt.Errorf(), because that will override the initial error with just a string.</p>
 </div>
 <div class="sect4">
-<h5 id="_passing_through_context_of_the_error_with_fmt_errorf"><a class="link" href="#_passing_through_context_of_the_error_with_fmt_errorf">4.D.10.1. Passing through context of the error with fmt.Errorf()</a></h5>
+<h5 id="_passing_through_context_of_the_error_with_fmt_errorf"><a class="link" href="#_passing_through_context_of_the_error_with_fmt_errorf">4.D.13.1. Passing through context of the error with fmt.Errorf()</a></h5>
 <div class="paragraph">
 <p>Using fmt.ErrorF() overwrites the error and returns just a string. Sometimes it&#8217;s just fine, but be aware of the consequences</p>
 </div>
@@ -9006,7 +9089,7 @@ The stacktrace is gone</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_better_passing_through_context_of_the_error_with_errors_wrap_from_the_github_compkgerrors_package"><a class="link" href="#_better_passing_through_context_of_the_error_with_errors_wrap_from_the_github_compkgerrors_package">4.D.10.2. Better &#8594; Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package</a></h5>
+<h5 id="_better_passing_through_context_of_the_error_with_errors_wrap_from_the_github_compkgerrors_package"><a class="link" href="#_better_passing_through_context_of_the_error_with_errors_wrap_from_the_github_compkgerrors_package">4.D.13.2. Better &#8594; Passing through context of the error with errors.Wrap() from the "github.com/pkg/errors" package</a></h5>
 <div class="paragraph">
 <p>Using errors.Wrap() adds your context to the error stack</p>
 </div>
@@ -9037,12 +9120,12 @@ The stacktrace is gone</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="297"><a class="link" href="#297">4.D.11. {SHALL} Documenting comments are always written in the idiomatic syntax.</a></h4>
+<h4 id="297"><a class="link" href="#297">4.D.14. {SHALL} Documenting comments are always written in the idiomatic syntax.</a></h4>
 <div class="paragraph">
 <p>The idiomatic syntax for writting comments in go is the // syntax for single line and multi line comments in code. The reason for this is readability. Anyone can spot comment lines instantly even when an IDE is not used. The comment syntax should be followed by a space for readabilty.</p>
 </div>
 <div class="sect4">
-<h5 id="_example_multi_line_comments"><a class="link" href="#_example_multi_line_comments">4.D.11.1. Example multi line comments</a></h5>
+<h5 id="_example_multi_line_comments"><a class="link" href="#_example_multi_line_comments">4.D.14.1. Example multi line comments</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="go"><span class="comment">// ServiceRequest is used by the core to send a service specification</span>
@@ -9083,7 +9166,7 @@ The stacktrace is gone</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_do_not_use_stars_or_other_formatting_in_comments"><a class="link" href="#_do_not_use_stars_or_other_formatting_in_comments">4.D.11.2. Do not use stars or other formatting in comments</a></h5>
+<h5 id="_do_not_use_stars_or_other_formatting_in_comments"><a class="link" href="#_do_not_use_stars_or_other_formatting_in_comments">4.D.14.2. Do not use stars or other formatting in comments</a></h5>
 <div class="listingblock go">
 <div class="content">
 <pre class="CodeRay highlight"><code>/**
@@ -11595,7 +11678,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-26 07:11:34 UTC
+Last updated 2021-06-02 12:50:30 UTC
 </div>
 </div>
 </body>
