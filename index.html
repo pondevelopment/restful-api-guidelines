@@ -8901,12 +8901,12 @@ In our CI/CD the default lint settings of golangci-lint are mandatory.</p>
 <div class="sect3">
 <h4 id="300"><a class="link" href="#300">4.D.8. <span class="must-keyword"><strong>MUST</strong></span> global variables are not used</a></h4>
 <div class="paragraph">
-<p>Global variables can cause al kinds of bugs in your code and result in poor readability and difficult debugging. It is hard to keep track of where the value is modified and will cause race conditions when used in combination with concurrency.</p>
+<p>Global variables can cause al kinds of bugs in your code and result in poor readability and difficult debugging. It is hard to keep track of where the value is modified and will cause race conditions when used in combination with concurrency. Another problem with global variables is that it can cause conflicts when importing packages. When either the package itself or the imported packages has global variables they are available in the other.</p>
 </div>
 <div class="sect4">
 <h5 id="_exception"><a class="link" href="#_exception">4.D.8.1. Exception</a></h5>
 <div class="paragraph">
-<p>There is only one valid reason to use global vars and that is for rule <a href="#299">299</a> when it concerns unitialized variables, but only when they are never initialized and modified.</p>
+<p>There is only one valid reason to use global vars and that is for rule <a href="#299">299</a> when it concerns unitialized variables, but only when they are never initialized, modified and you are aware of the risks of conflict with imported packages. Rule of thumb is: You don&#8217;t use global vars when your package is to be imported.</p>
 </div>
 </div>
 </div>
@@ -8935,7 +8935,7 @@ In our CI/CD the default lint settings of golangci-lint are mandatory.</p>
 <div class="sect3">
 <h4 id="299"><a class="link" href="#299">4.D.10. <span class="should-keyword"><strong>SHOULD</strong></span> use unitialized variables to check for zero-values</a></h4>
 <div class="paragraph">
-<p>An uninitialized variable has the zero value for the declared type. This can be used to check if a variable is zero valued in an absolute and readable manner. These unitialized variabled can be used as global vars to avoid recursion. This is an exception to rule</p>
+<p>An uninitialized variable has the zero value for the declared type. This can be used to check if a variable is zero valued in an absolute and readable manner. These unitialized variabled can be used as global vars to avoid recursion, but be aware of the risks of global vars as stated in rule <a href="#300">300</a>. This is an exception to rule</p>
 </div>
 <div class="sect4">
 <h5 id="_avoid"><a class="link" href="#_avoid">4.D.10.1. Avoid</a></h5>
@@ -11678,7 +11678,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-02 12:50:30 UTC
+Last updated 2021-06-03 11:36:36 UTC
 </div>
 </div>
 </body>
