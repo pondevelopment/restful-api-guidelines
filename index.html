@@ -1806,9 +1806,9 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#development-background">4.7. Development background</a></li>
 <li><a href="#date-time">4.8. Date and time handling</a>
 <ul class="sectlevel3">
-<li><a href="#296">4.8.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> use ISO 8601 for time and date encoding</a></li>
+<li><a href="#296">4.8.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> use RFC 3339 for time and date encoding</a></li>
 <li><a href="#295">4.8.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> date time manipulation must be handled by a library</a></li>
-<li><a href="#127">4.8.3. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></li>
+<li><a href="#127">4.8.3. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to RFC 3339</a></li>
 </ul>
 </li>
 <li><a href="#appendix-standard-style">Appendix C: Pon Standard Style</a>
@@ -8407,28 +8407,29 @@ guidelines or standards per-se but it can be of guidance for developers.</p>
 <div class="sect2">
 <h3 id="date-time"><a class="link" href="#date-time">4.8. Date and time handling</a></h3>
 <div class="paragraph">
-<p>Date and time handling guidelines, including time intervals and durations.</p>
+<p>This chapter handles the date and the time guidelines, including time intervals
+and durations.</p>
 </div>
 <div class="sect3">
-<h4 id="296"><a class="link" href="#296">4.8.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> use ISO 8601 for time and date encoding</a></h4>
+<h4 id="296"><a class="link" href="#296">4.8.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> use RFC 3339 for time and date encoding</a></h4>
 <div class="paragraph">
-<p>The international standard <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> must be used for time and date
+<p>The international standard <a href="https://tools.ietf.org/html/rfc3339">RFC-3339</a> must be used for time and date
 encoding unless not feasible due to technical constraints.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="295"><a class="link" href="#295">4.8.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> date time manipulation must be handled by a library</a></h4>
 <div class="paragraph">
-<p>Date and time manipulation is very complex and involves many one-offs and thus
-very error prone. Date and time manipulation must be handled by a dedicated
+<p>Date and time manipulation is very complex and involves many one-offs, and thus
+very error-prone. Date and time manipulation must be handled by a dedicated
 library, which is available for all main development languages.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="127"><a class="link" href="#127">4.8.3. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to ISO 8601</a></h4>
+<h4 id="127"><a class="link" href="#127">4.8.3. <span class="should-keyword"><strong>SHOULD</strong></span> define time durations and intervals properties conform to RFC 3339</a></h4>
 <div class="paragraph">
-<p>Schema based JSON properties that are by design durations and intervals could
-be strings formatted as recommended by <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>(<a href="https://tools.ietf.org/html/rfc3339#appendix-A">Appendix A of RFC 3339 contains a grammar</a> for durations).</p>
+<p>Schema-based JSON properties that are by design durations and intervals could
+be strings formatted as recommended by <a href="https://tools.ietf.org/html/rfc3339">RFC-3339</a> (<a href="https://tools.ietf.org/html/rfc3339#appendix-A">Appendix A of RFC 3339 contains a grammar</a> for durations).</p>
 </div>
 </div>
 </div>
@@ -11531,7 +11532,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-03 13:07:14 UTC
+Last updated 2021-06-03 13:59:49 UTC
 </div>
 </div>
 </body>
