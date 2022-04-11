@@ -1454,7 +1454,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#quality">2.3. Quality</a>
 <ul class="sectlevel3">
-<li><a href="#294">2.3.1. {STATUS_RFP} <span class="should-keyword"><strong>SHOULD</strong></span> have seperate environments for development, testing, acceptance and production</a>
+<li><a href="#294">2.3.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="should-keyword"><strong>SHOULD</strong></span> have seperate environments for development, testing, acceptance and production</a>
 <ul class="sectlevel4">
 <li><a href="#_development">2.3.1.1. Development</a></li>
 <li><a href="#_testing">2.3.1.2. Testing</a></li>
@@ -1462,7 +1462,13 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_production">2.3.1.4. Production</a></li>
 </ul>
 </li>
-<li><a href="#276">2.3.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></li>
+<li><a href="#_code_quality">2.3.2. Code Quality</a>
+<ul class="sectlevel4">
+<li><a href="#299">2.3.2.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have code duplication checks</a></li>
+<li><a href="#_gui_and_websites">2.3.2.2. GUI and Websites</a></li>
+<li><a href="#_apis">2.3.2.3. API&#8217;s</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#security-development">2.4. Security</a>
@@ -2345,7 +2351,7 @@ level it will impact the effectiveness of its users.</p>
 <div class="sect2">
 <h3 id="quality"><a class="link" href="#quality">2.3. Quality</a></h3>
 <div class="sect3">
-<h4 id="294"><a class="link" href="#294">2.3.1. {STATUS_RFP} <span class="should-keyword"><strong>SHOULD</strong></span> have seperate environments for development, testing, acceptance and production</a></h4>
+<h4 id="294"><a class="link" href="#294">2.3.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="should-keyword"><strong>SHOULD</strong></span> have seperate environments for development, testing, acceptance and production</a></h4>
 <div class="paragraph">
 <p>In order to maintain software or integration quality the setup of an DTAP
 environment is preferred. This setup allows for an atomized way of working on
@@ -2393,8 +2399,52 @@ after a signoff of which the requirements are specified beforehand.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="276"><a class="link" href="#276">2.3.2. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></h4>
-
+<h4 id="_code_quality"><a class="link" href="#_code_quality">2.3.2. Code Quality</a></h4>
+<div class="paragraph">
+<p>The quality of the code should be known, but we diffrentiate between frontends and api&#8217;s. GUI are more difficult to test, because you&#8217;ll need to automate the click flow through the frontend/GUI and therefor more labour intensive to maintain.</p>
+</div>
+<div class="paragraph">
+<p>All tests and checks should be configured in the pipeline so the developer receives instant feedback of the commit.</p>
+</div>
+<div class="sect4">
+<h5 id="299"><a class="link" href="#299">2.3.2.1. <span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have code duplication checks</a></h5>
+<div class="paragraph">
+<p>A software project must have something in place to detect duplicated code.</p>
+</div>
+<div class="sect5">
+<h6 id="300"><a class="link" href="#300"><span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have vulnerability checks</a></h6>
+<div class="paragraph">
+<p>When running in the pipeline a vulnerability check must happen, so compromised libraries are not taken into production (because the pipeline is blocked).</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_gui_and_websites"><a class="link" href="#_gui_and_websites">2.3.2.2. GUI and Websites</a></h5>
+<div class="sect5">
+<h6 id="297"><a class="link" href="#297"><span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="should-keyword"><strong>SHOULD</strong></span> have predefined tests</a></h6>
+<div class="paragraph">
+<p>A GUI project should have some tests defined, for example; a webshop should be able to have an item in the cart and finalize the checkout.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_apis"><a class="link" href="#_apis">2.3.2.3. API&#8217;s</a></h5>
+<div class="paragraph">
+<p>API&#8217;s need to have a certain quality level which can be observed.</p>
+</div>
+<div class="sect5">
+<h6 id="276"><a class="link" href="#276"><span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have predefined tests</a></h6>
+<div class="paragraph">
+<p>An API must have Unit / feature / e2e tests available. This tells something about how well you can trust what to expect from your code.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="298"><a class="link" href="#298"><span class="status-rfp-keyword"><strong>(RFP)</strong></span> <span class="must-keyword"><strong>MUST</strong></span> have a pre-defined code-coverage percentage</a></h6>
+<div class="paragraph">
+<p>An API must have a pre-defined level of code-coverage. This tells something about how well the code is tested and if all code paths have been checked.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -11532,7 +11582,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-11 08:42:03 UTC
+Last updated 2022-04-11 09:06:42 UTC
 </div>
 </div>
 </body>
