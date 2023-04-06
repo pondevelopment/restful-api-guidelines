@@ -138,6 +138,11 @@ this may comprise the support for {prev}, {first}, {last}, and {self} as
 {link-relations}[link relations] (see also <<link-relation-fields>> for
 details).
 
+The first position should be 1, and every next position should be increased by 1.
+https://google.aip.dev/158#guidance
+
+If the next position doesn't have results, it shoudn't return a link.
+
 The page content is transported via {items}, while the {query} object may
 contain the query filters applied to the collection resource as follows:
 
