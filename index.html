@@ -3227,6 +3227,15 @@ this may comprise the support for <a href="#prev"><code>prev</code></a>, <a href
 details).</p>
 </div>
 <div class="paragraph">
+<p>The first position at the api pagination should be 0, and every next position should be increased by 1.
+Starting with zero makes the math simple.
+API is designed to consumed by another system, and all code starts lists with zero.
+<a href="https://en.wikipedia.org/wiki/Zero-based_numbering" class="bare">https://en.wikipedia.org/wiki/Zero-based_numbering</a></p>
+</div>
+<div class="paragraph">
+<p>If the next position doesn&#8217;t have results, it shoudn&#8217;t return a link.</p>
+</div>
+<div class="paragraph">
 <p>The page content is transported via <a href="#items"><code>items</code></a>, while the <a href="#query"><code>query</code></a> object may
 contain the query filters applied to the collection resource as follows:</p>
 </div>
@@ -11747,7 +11756,7 @@ window.cookieconsent.initialise({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-18 11:36:55 UTC
+Last updated 2023-04-19 09:13:17 UTC
 </div>
 </div>
 </body>
